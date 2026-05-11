@@ -18,13 +18,13 @@ This repository contains a vanilla HTML/CSS/JS responsive one-page prototype for
 
 ## Collaboration Workflow
 
-- Before coding a new section, confirm the section goal and acceptance criteria with the user.
-- After each approved section, summarize what changed, what was verified, and what still needs review.
+- Proceed through implementation units automatically unless the user asks to pause or review first.
+- After each completed section, summarize what changed, what was verified, and what still needs review.
 - Do not overwrite or revert user changes unless the user explicitly asks.
 
 ## Git And Auto-Commit Rules
 
-- Use focused commits after each approved unit of work, unless the user asks not to commit.
+- Use focused commits after each completed unit of work, unless the user asks not to commit.
 - Before committing, inspect `git status` and `git diff` and include only relevant files.
 - Never commit secrets, credentials, `.env` files, generated dependency folders, or unrelated local changes.
 - Use concise commit messages that describe the project value, for example `Build responsive hero section` or `Document project plan`.

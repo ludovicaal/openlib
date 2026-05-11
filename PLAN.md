@@ -34,7 +34,7 @@ Build a vanilla HTML/CSS/JS responsive one-page prototype for OpenLib, based on 
 - Asset strategy: export required Figma assets into local project files; do not depend on `localhost:3845` for the final deliverable.
 - Language strategy: Italian copy follows Figma; clicking English changes all visible website text. English copy can be generated during implementation.
 - Copy policy: fix clear typos only, unless broader copy changes are explicitly approved.
-- Workflow: coding starts only after explicit approval, proceeds section by section, and each approved unit gets a focused git commit after verification.
+- Workflow: proceed through implementation units automatically, and each completed unit gets a focused git commit after verification.
 
 ## Technical Approach
 
@@ -75,13 +75,13 @@ Acceptance criteria: FAQ accordion is keyboard-accessible; footer preserves bran
 9. Final responsive and presentation polish
 Acceptance criteria: desktop 1441px fidelity pass, tablet/mobile pass, interaction pass, link/asset pass, accessibility basics, final typo check, and final commit if approved.
 
-## Approval And Commit Workflow
+## Progression And Commit Workflow
 
-- Before each implementation unit, ask for explicit approval and confirm acceptance criteria.
+- Proceed automatically through implementation units unless the user asks to pause or review first.
 - After each unit, verify the relevant responsive/interactions manually and report what was checked.
-- Commit only the relevant files for that approved unit.
+- Commit only the relevant files for that completed unit.
 - Do not mix unrelated changes into a commit.
-- If verification fails, fix the issue before committing or document the failure and ask for approval.
+- If verification fails, fix the issue before committing or document the failure clearly.
 
 ## Open Items
 
