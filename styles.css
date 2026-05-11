@@ -233,6 +233,7 @@ p {
   border-radius: var(--button-radius);
   padding: 12px 14px;
   line-height: 1;
+  text-decoration: none;
 }
 
 .button--primary {
@@ -648,147 +649,36 @@ p {
   padding: 80px;
 }
 
-.map-art {
-  position: absolute;
-  inset: -120px -340px -220px -170px;
-  pointer-events: none;
-}
-
-.map-art::before,
-.map-art::after {
-  position: absolute;
-  border-radius: 45% 55% 50% 50%;
-  background: rgba(255, 237, 174, 0.55);
-  content: "";
-}
-
-.map-art::before {
-  width: 720px;
-  height: 520px;
-  left: 760px;
-  top: 60px;
-  transform: rotate(-11deg);
-}
-
-.map-art::after {
-  width: 640px;
-  height: 470px;
-  left: 260px;
-  top: 560px;
-  background: rgba(174, 227, 255, 0.36);
-  transform: rotate(15deg);
-}
-
-.map-lombardia {
-  position: absolute;
-  left: 520px;
-  top: 95px;
-  width: 760px;
-  opacity: 0.92;
-}
-
-.map-library-cluster {
-  position: absolute;
-  left: 970px;
-  top: 438px;
-  width: 72px;
-}
-
-.map-region-label {
-  position: absolute;
-  z-index: 2;
-  color: var(--color-choco);
-  font-family: var(--font-display);
-  font-size: 30px;
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.map-region-label--piemonte {
-  left: 290px;
-  top: 735px;
-}
-
-.map-region-label--valle {
-  left: 30px;
-  top: 440px;
-}
-
-.map-region-label--trentino {
-  left: 1040px;
-  top: 250px;
-}
-
-.map-region-label--emilia {
-  left: 1020px;
-  top: 835px;
-}
-
-.map-region-label--lombardia {
-  left: 800px;
-  top: 565px;
-}
-
-.map-marker-layer {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  pointer-events: none;
-}
-
-.map-marker {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 4px solid var(--color-white);
-  border-radius: 999px;
-  background: var(--color-choco);
-  box-shadow: 0 10px 22px rgba(21, 21, 21, 0.22);
-  pointer-events: auto;
-  transition: transform 180ms ease, background 180ms ease;
-}
-
-.map-marker.is-active,
-.map-marker:hover {
-  background: var(--color-cloud);
-  transform: scale(1.25);
-}
-
-.map-marker--feltrinelli {
-  top: 405px;
-  right: 507px;
-}
-
-.map-marker--sormani {
-  top: 368px;
-  right: 560px;
-}
-
-.map-marker--venezia {
-  top: 344px;
-  right: 478px;
-}
-
 .map-content {
   position: relative;
-  z-index: 4;
-  display: grid;
-  grid-template-columns: 350px minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
+  display: flex;
   min-height: 575px;
-  gap: 62px 115px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
 }
 
 .map-search-card {
   display: flex;
-  grid-row: 1 / span 2;
-  min-height: 575px;
+  width: 350px;
+  height: 575px;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 35px;
   border-radius: 18px;
   background: var(--color-lips);
   padding: 45px;
+}
+
+.map-search-top {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.map-search-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .map-title {
@@ -797,14 +687,17 @@ p {
   font-size: 30px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.08;
+  line-height: 0.95;
 }
 
-.map-search-card p {
-  margin-top: 20px;
+.map-title span {
+  color: var(--color-choco);
+}
+
+.map-search-copy p {
   color: var(--color-black);
   font-size: 18px;
-  line-height: 1.25;
+  line-height: 1.1;
 }
 
 .map-search {
@@ -853,97 +746,17 @@ p {
 .map-request-card p {
   margin: 0 0 30px;
   font-size: 16px;
+  line-height: 1.08;
 }
 
 .map-request-button {
-  width: 100%;
+  width: 170px;
   min-height: 51px;
   gap: 12px;
 }
 
 .map-kicker {
-  justify-self: end;
-  align-self: start;
-}
-
-.library-card {
-  display: grid;
-  grid-template-columns: 166px minmax(0, 1fr) auto;
-  align-items: start;
-  max-width: 516px;
-  align-self: center;
-  gap: 25px 15px;
-  border-radius: 11px;
-  background: var(--color-dolphin);
-  padding: 25px;
-}
-
-.library-card__photo {
-  width: 166px;
-  height: 166px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.library-card__content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  color: var(--color-black);
-  font-size: 14px;
-  line-height: 1.25;
-}
-
-.library-card__eyebrow {
-  color: var(--color-choco);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.library-card h3 {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.16;
-}
-
-.library-card address {
-  display: grid;
-  gap: 4px;
-  font-style: normal;
-}
-
-.library-card__hours,
-.library-card__phone,
-.map-status {
-  font-size: 13px;
-}
-
-.library-card__phone {
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.map-status {
-  color: var(--color-choco);
-  font-weight: 700;
-}
-
-.library-card__actions {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.library-card__actions .button {
-  padding-block: 10px;
-}
-
-.library-card__directions {
-  border: 0;
-  background: var(--color-white);
+  margin-top: 12px;
 }
 
 .courses-section {
@@ -2207,49 +2020,6 @@ p {
     padding: 32px 24px;
   }
 
-  .map-art {
-    position: relative;
-    inset: auto;
-    height: 280px;
-    overflow: hidden;
-    margin: -12px -24px 32px;
-  }
-
-  .map-lombardia {
-    left: 18%;
-    top: 10px;
-    width: 520px;
-  }
-
-  .map-library-cluster {
-    left: 58%;
-    top: 138px;
-  }
-
-  .map-region-label {
-    font-size: 18px;
-  }
-
-  .map-region-label--piemonte {
-    left: 10%;
-    top: 190px;
-  }
-
-  .map-region-label--valle,
-  .map-region-label--trentino,
-  .map-region-label--emilia {
-    display: none;
-  }
-
-  .map-region-label--lombardia {
-    left: 48%;
-    top: 116px;
-  }
-
-  .map-marker-layer {
-    display: none;
-  }
-
   .map-content {
     display: flex;
     min-height: 0;
@@ -2258,27 +2028,21 @@ p {
   }
 
   .map-search-card {
+    width: 100%;
+    height: auto;
     min-height: 0;
     gap: 32px;
     padding: 32px 24px;
   }
 
+  .map-search-top {
+    gap: 32px;
+  }
+
   .map-kicker {
-    justify-self: start;
-  }
-
-  .library-card {
-    grid-template-columns: 1fr;
-    max-width: none;
-  }
-
-  .library-card__photo {
-    width: 100%;
-    height: 190px;
-  }
-
-  .library-card__actions {
-    width: 100%;
+    order: -1;
+    width: max-content;
+    margin-top: 0;
   }
 
   .courses-section {
@@ -2627,22 +2391,19 @@ p {
   }
 
   .map-content {
-    grid-template-columns: 1fr;
+    min-height: 0;
     gap: 32px;
   }
 
   .map-search-card {
-    grid-row: auto;
+    width: 100%;
+    height: auto;
     min-height: 0;
     gap: 32px;
   }
 
   .map-kicker {
-    justify-self: start;
-  }
-
-  .library-card {
-    max-width: none;
+    margin-top: 0;
   }
 
   .courses-panel {

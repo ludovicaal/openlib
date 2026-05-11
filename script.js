@@ -818,6 +818,19 @@ function setTextContent() {
   });
 }
 
+function renderMapTitle() {
+  const title = document.querySelector("[data-map-title]");
+
+  if (!title) {
+    return;
+  }
+
+  title.innerHTML =
+    appState.language === "it"
+      ? "Trova il tuo<br>punto <span>OpenLib.</span>"
+      : "Find your<br><span>OpenLib</span> point.";
+}
+
 function getActiveLibrary() {
   return libraries.find((library) => library.id === appState.activeLibraryId) || libraries[0];
 }
@@ -1303,6 +1316,7 @@ function applyLanguage() {
   document.body.dataset.language = appState.language;
   setDocumentLanguage();
   setTextContent();
+  renderMapTitle();
   setLanguageToggle();
   renderLibraryCard();
   renderCourses();
