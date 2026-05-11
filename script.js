@@ -6,6 +6,7 @@ const appState = {
   activeCourseEventId: "wordpress-4",
   activeCommunityIndex: 0,
   activeFormTab: "students",
+  activeFaqId: "free",
 };
 
 const translations = {
@@ -121,6 +122,15 @@ const translations = {
     formSubmit: "Invia",
     formErrorRequired: "Compila i campi obbligatori e accetta la Privacy Policy per continuare.",
     formSuccessMessage: "Richiesta ricevuta per {role}. Ti scriveremo con i prossimi passi.",
+    faqKicker: "FAQ",
+    faqTitle: "Domande frequenti",
+    footerTagline: "Where your library feels like home. Knowledge lives next door.",
+    footerProject: "Project Work 2026",
+    footerSocialAria: "Social OpenLib",
+    footerInstagramAria: "Apri Instagram",
+    footerTiktokAria: "Apri TikTok",
+    footerYoutubeAria: "Apri YouTube",
+    footerXAria: "Apri X",
   },
   en: {
     documentTitle: "OpenLib | A distributed campus in your library",
@@ -231,6 +241,15 @@ const translations = {
     formSubmit: "Send",
     formErrorRequired: "Complete the required fields and accept the Privacy Policy to continue.",
     formSuccessMessage: "Request received for {role}. We will write to you with the next steps.",
+    faqKicker: "FAQ",
+    faqTitle: "Frequently asked questions",
+    footerTagline: "Where your library feels like home. Knowledge lives next door.",
+    footerProject: "Project Work 2026",
+    footerSocialAria: "OpenLib social links",
+    footerInstagramAria: "Open Instagram",
+    footerTiktokAria: "Open TikTok",
+    footerYoutubeAria: "Open YouTube",
+    footerXAria: "Open X",
   },
 };
 
@@ -686,6 +705,75 @@ const formTabData = {
   },
 };
 
+const faqItems = [
+  {
+    id: "free",
+    question: {
+      it: "Il servizio è davvero gratuito?",
+      en: "Is the service really free?",
+    },
+    answer: {
+      it: "Sì. OpenLib usa spazi culturali già presenti nel quartiere e si basa sullo scambio peer-to-peer: chi insegna dona una competenza, chi impara partecipa senza barriere economiche.",
+      en: "Yes. OpenLib uses cultural spaces that already exist in the neighborhood and is based on peer-to-peer exchange: teachers share a skill and learners join without economic barriers.",
+    },
+  },
+  {
+    id: "skills",
+    question: {
+      it: "Che tipo di competenze posso trovare nel mio quartiere?",
+      en: "What kind of skills can I find in my neighborhood?",
+    },
+    answer: {
+      it: "Ogni punto OpenLib costruisce il programma con la propria comunità: lingue, digitale, arti visive, storia locale, comunicazione, musica e competenze pratiche proposte dagli abitanti.",
+      en: "Each OpenLib point builds its programme with its community: languages, digital skills, visual arts, local history, communication, music and practical skills proposed by residents.",
+    },
+  },
+  {
+    id: "join",
+    question: {
+      it: "Come faccio a partecipare a un incontro?",
+      en: "How do I join a meeting?",
+    },
+    answer: {
+      it: "Scegli un corso dal calendario, compila il form Studenti e aspetta la conferma. I posti sono limitati per mantenere gli incontri piccoli, accessibili e curati.",
+      en: "Choose a course from the calendar, complete the Students form and wait for confirmation. Seats are limited so meetings stay small, accessible and well cared for.",
+    },
+  },
+  {
+    id: "mentor",
+    question: {
+      it: "Chiunque può diventare un mentore di quartiere?",
+      en: "Can anyone become a neighborhood mentor?",
+    },
+    answer: {
+      it: "Sì, se ha una competenza concreta da condividere e accetta le regole della community. La biblioteca partner aiuta con una verifica leggera, spazi adatti e feedback dopo gli incontri.",
+      en: "Yes, if they have a concrete skill to share and accept the community rules. The partner library supports a light verification, suitable spaces and feedback after each meeting.",
+    },
+  },
+  {
+    id: "time",
+    question: {
+      it: "Quanto tempo devo dedicare al progetto?",
+      en: "How much time do I need to dedicate?",
+    },
+    answer: {
+      it: "Puoi iniziare con un singolo incontro o proporre un ciclo breve. OpenLib è pensato per adattarsi ai ritmi delle persone, non per aggiungere pressione.",
+      en: "You can start with a single meeting or propose a short cycle. OpenLib is designed around people's rhythms, not to add pressure.",
+    },
+  },
+  {
+    id: "neighborhood",
+    question: {
+      it: "Il mio quartiere non è ancora attivo. Cosa posso fare?",
+      en: "My neighborhood is not active yet. What can I do?",
+    },
+    answer: {
+      it: "Scrivici dal form Info: raccogliamo richieste, contatti di biblioteche e disponibilità di mentori per capire dove aprire i prossimi punti OpenLib.",
+      en: "Write to us through the Info form: we collect requests, library contacts and mentor availability to understand where to open the next OpenLib points.",
+    },
+  },
+];
+
 function getCopy(key) {
   return translations[appState.language][key] || translations.it[key] || "";
 }
@@ -1135,6 +1223,57 @@ function validateSignupForm() {
   form.reset();
 }
 
+function renderFaqItem(item) {
+  const isOpen = item.id === appState.activeFaqId;
+  const panelId = `faq-panel-${item.id}`;
+  const buttonId = `faq-button-${item.id}`;
+
+  return `
+    <article class="faq-item${isOpen ? " is-open" : ""}">
+      <h3>
+        <button
+          id="${escapeHtml(buttonId)}"
+          type="button"
+          aria-expanded="${String(isOpen)}"
+          aria-controls="${escapeHtml(panelId)}"
+          data-faq-toggle="${escapeHtml(item.id)}"
+        >
+          <span>${escapeHtml(getLocalizedValue(item.question))}</span>
+          <span class="faq-item__icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div
+        id="${escapeHtml(panelId)}"
+        class="faq-item__panel"
+        role="region"
+        aria-labelledby="${escapeHtml(buttonId)}"
+        ${isOpen ? "" : "hidden"}
+      >
+        <p>${escapeHtml(getLocalizedValue(item.answer))}</p>
+      </div>
+    </article>
+  `;
+}
+
+function renderFaqAccordion() {
+  const list = document.querySelector("[data-faq-list]");
+
+  if (!list) {
+    return;
+  }
+
+  list.innerHTML = faqItems.map(renderFaqItem).join("");
+}
+
+function toggleFaqItem(faqId) {
+  if (!faqItems.some((item) => item.id === faqId)) {
+    return;
+  }
+
+  appState.activeFaqId = appState.activeFaqId === faqId ? "" : faqId;
+  renderFaqAccordion();
+}
+
 function setDocumentLanguage() {
   document.documentElement.lang = appState.language;
   document.title = getCopy("documentTitle");
@@ -1169,6 +1308,7 @@ function applyLanguage() {
   renderCourses();
   renderCommunityCarousel();
   renderSignupForm();
+  renderFaqAccordion();
 }
 
 function toggleLanguage() {
@@ -1323,6 +1463,24 @@ function bindSignupForm() {
   });
 }
 
+function bindFaqAccordion() {
+  const faqSection = document.querySelector("[data-faq-section]");
+
+  faqSection?.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+
+    const toggle = event.target.closest("[data-faq-toggle]");
+
+    if (!toggle) {
+      return;
+    }
+
+    toggleFaqItem(toggle.dataset.faqToggle);
+  });
+}
+
 function markAppReady() {
   document.body.classList.add("is-ready");
 }
@@ -1333,6 +1491,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCourses();
   bindCommunityCarousel();
   bindSignupForm();
+  bindFaqAccordion();
   applyLanguage();
   markAppReady();
 });

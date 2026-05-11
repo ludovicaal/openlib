@@ -1834,6 +1834,181 @@ p {
   color: var(--color-choco);
 }
 
+.faq-section {
+  background: var(--color-white);
+  padding-block: 50px 150px;
+}
+
+.faq-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 75px;
+  border-radius: 18px;
+  background: var(--color-teeth);
+  padding: 80px;
+}
+
+.faq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.faq-heading {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.faq-heading .section-badge {
+  transform: rotate(-5.19deg);
+}
+
+.faq-heading h2 {
+  color: var(--color-choco);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.03;
+}
+
+.faq-illustration {
+  width: 310px;
+  height: auto;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.faq-item {
+  border-bottom: 1.3px solid rgba(21, 21, 21, 0.16);
+}
+
+.faq-item h3 {
+  margin: 0;
+}
+
+.faq-item button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--color-black);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  padding: 0 0 37px;
+  text-align: left;
+}
+
+.faq-item + .faq-item button {
+  padding-top: 37px;
+}
+
+.faq-item__icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  border-right: 2px solid var(--color-black);
+  border-bottom: 2px solid var(--color-black);
+  transform: rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.faq-item.is-open .faq-item__icon {
+  transform: translateY(4px) rotate(-135deg);
+}
+
+.faq-item__panel {
+  max-width: 760px;
+  color: var(--color-choco);
+  font-size: 18px;
+  line-height: 1.45;
+  padding: 0 56px 32px 0;
+}
+
+.site-footer {
+  background: var(--color-panna);
+  padding-block: 120px;
+}
+
+.footer-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.footer-top,
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.footer-mark {
+  width: 129px;
+  height: auto;
+}
+
+.footer-top p {
+  width: min(100%, 561px);
+  color: var(--color-choco);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.footer-rule {
+  height: 1px;
+  background: rgba(105, 73, 59, 0.22);
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-logo img {
+  width: 105.5px;
+  height: auto;
+}
+
+.footer-bottom p {
+  color: var(--color-choco);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+}
+
+.footer-social a {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-social img {
+  max-width: 20px;
+  max-height: 20px;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -2297,6 +2472,56 @@ p {
     font-size: 18px;
   }
 
+  .faq-section {
+    padding-block: 20px 80px;
+  }
+
+  .faq-panel {
+    gap: 48px;
+    border-radius: 16px;
+    padding: 32px 24px;
+  }
+
+  .faq-header,
+  .faq-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .faq-illustration {
+    width: min(100%, 280px);
+  }
+
+  .faq-item button {
+    align-items: flex-start;
+    font-size: 20px;
+    padding-bottom: 28px;
+  }
+
+  .faq-item + .faq-item button {
+    padding-top: 28px;
+  }
+
+  .faq-item__panel {
+    padding-right: 0;
+    font-size: 16px;
+  }
+
+  .site-footer {
+    padding-block: 72px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .footer-top p {
+    font-size: clamp(28px, 9vw, 36px);
+  }
+
   .narrative-panel {
     gap: 48px;
     border-radius: 16px;
@@ -2493,6 +2718,15 @@ p {
   .signup-visual {
     min-height: 0;
     gap: 40px;
+  }
+
+  .faq-panel {
+    padding: 56px;
+  }
+
+  .faq-header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
