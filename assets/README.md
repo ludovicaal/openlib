@@ -21,5 +21,12 @@ Local assets exported from Figma for the OpenLib prototype live here.
 - `map-library-cluster.svg`: Figma node `1791:11898`, map library cluster asset.
 - `library-feltrinelli.png`: Figma node `1777:9352`, sample library image.
 - `illustration-courses.png`: Figma node `1791:13288`, courses section illustration.
+- `illustration-news.png`: Figma node `1688:1891`, news section illustration.
+- `community-giulia.png`: Figma node `1687:1417`, community story avatar.
+- `community-sara.png`: Figma node `1687:1430`, community story avatar.
+- `community-luca.png`: Figma node `1687:1443`, community story avatar.
+- `community-elena.png`: Figma node `1687:1456`, community story avatar.
+- `community-marco.png`: Figma node `1687:1469`, community story avatar.
+- `community-tommaso.png`: Figma node `1687:1482`, community story avatar.
 
 Do not reference `localhost:3845` asset URLs in the final prototype. Download assets into this folder and reference them with relative paths.

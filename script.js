@@ -4,6 +4,7 @@ const appState = {
   activeLibraryId: "feltrinelli",
   mapStatusKey: "mapStatusDefault",
   activeCourseEventId: "wordpress-4",
+  activeCommunityIndex: 0,
 };
 
 const translations = {
@@ -94,6 +95,19 @@ const translations = {
     courseSignupCta: "Iscriviti",
     courseDateLabel: "{day} maggio",
     courseCalendarEventAria: "{title}, {day} maggio, {time}, {library}",
+    newsKicker: "News",
+    newsTitle: "Aggiornamenti, eventi e storie direttamente dalla nostra community.",
+    newsLead: "Ogni giorno c'è chi cresce imparando e chi cresce insegnando. Queste sono le loro storie.",
+    newsBodyOne:
+      "Raccontiamo come le biblioteche stanno tornando a vivere e come nascono nuovi percorsi di apprendimento accessibili, umani e pensati per chi non smette mai di crescere.",
+    newsBodyTwo:
+      "Crediamo che la conoscenza sia più ricca quando viene condivisa. Un sapere condiviso non si consuma, si moltiplica. Chi insegna cresce insieme a chi impara.",
+    newsBodyThree: "Seguici per scoprire nuovi eventi, nuovi corsi e nuove storie dalla community OpenLib.",
+    communityCarouselAria: "Storie della community OpenLib",
+    communityControlsAria: "Controlli carousel community",
+    communityPrevAria: "Storia precedente",
+    communityNextAria: "Storia successiva",
+    communityStoryAria: "Storia {position} di {total}: {name}",
   },
   en: {
     documentTitle: "OpenLib | A distributed campus in your library",
@@ -180,6 +194,19 @@ const translations = {
     courseSignupCta: "Join now",
     courseDateLabel: "May {day}",
     courseCalendarEventAria: "{title}, May {day}, {time}, {library}",
+    newsKicker: "News",
+    newsTitle: "Updates, events and stories straight from our community.",
+    newsLead: "Every day someone grows by learning and someone grows by teaching. These are their stories.",
+    newsBodyOne:
+      "We share how libraries are coming back to life and how new learning paths become accessible, human and made for people who never stop growing.",
+    newsBodyTwo:
+      "We believe knowledge becomes richer when it is shared. Shared knowledge is not consumed, it multiplies. Teachers grow together with learners.",
+    newsBodyThree: "Follow us to discover new events, new courses and new stories from the OpenLib community.",
+    communityCarouselAria: "OpenLib community stories",
+    communityControlsAria: "Community carousel controls",
+    communityPrevAria: "Previous story",
+    communityNextAria: "Next story",
+    communityStoryAria: "Story {position} of {total}: {name}",
   },
 };
 
@@ -397,6 +424,99 @@ const courseEvents = [
     time: "14:00 - 16:00",
     library: "Biblioteca Parco Sempione",
     libraryShort: "Parco Sempione",
+  },
+];
+
+const communityStories = [
+  {
+    name: "Giulia",
+    image: "assets/community-giulia.png",
+    cardTheme: "chick",
+    labelTheme: "dolphin",
+    quote: {
+      it: "Ho sempre desiderato imparare a disegnare, ma non sapevo da dove iniziare.",
+      en: "I always wanted to learn to draw, but I did not know where to begin.",
+    },
+    body: {
+      it: "Giulia ha scoperto OpenLib e ha iniziato un corso di illustrazione. Grazie ai feedback della community, è riuscita a migliorare rapidamente le sue abilità e ora crea opere che condivide con orgoglio.",
+      en: "Giulia discovered OpenLib and joined an illustration course. Thanks to community feedback, she quickly improved her skills and now proudly shares her work.",
+    },
+    tags: ["#CreativeJourney", "#ArtCommunity"],
+  },
+  {
+    name: "Sara",
+    image: "assets/community-sara.png",
+    cardTheme: "panna",
+    labelTheme: "choco",
+    quote: {
+      it: "Il mio primo progetto l'ho realizzato grazie a OpenLib.",
+      en: "I built my first project thanks to OpenLib.",
+    },
+    body: {
+      it: "Sara ha sempre sognato di creare un'app, ma non sapeva come iniziare. In OpenLib ha trovato i giusti strumenti e l'incoraggiamento per sviluppare la sua idea in un progetto concreto e funzionante.",
+      en: "Sara had always dreamed of creating an app, but did not know where to start. OpenLib gave her the tools and encouragement to turn her idea into a working project.",
+    },
+    tags: ["#AppDevelopment", "#Inspiration"],
+  },
+  {
+    name: "Luca",
+    image: "assets/community-luca.png",
+    cardTheme: "dolphin",
+    labelTheme: "lips",
+    quote: {
+      it: "Ho trovato il coraggio di inseguire la mia passione per la musica.",
+      en: "I found the courage to follow my passion for music.",
+    },
+    body: {
+      it: "Luca, dopo aver tentato di imparare la chitarra da solo, ha trovato in OpenLib un gruppo di musicisti che lo ha supportato e motivato. La sua musica ha ora una nuova vita grazie a questa rete di supporto.",
+      en: "After trying to learn guitar alone, Luca found a group of musicians through OpenLib who supported and motivated him. His music now has new life through this network.",
+    },
+    tags: ["#MusicalGrowth", "#SupportSystem"],
+  },
+  {
+    name: "Elena",
+    image: "assets/community-elena.png",
+    cardTheme: "skin",
+    labelTheme: "dolphin",
+    quote: {
+      it: "Da introversa a collaborativa",
+      en: "From introverted to collaborative",
+    },
+    body: {
+      it: "Elena si sentiva sola e intimorita all'idea di partecipare a eventi. OpenLib le ha fornito un ambiente sicuro dove connettersi con gli altri, e ora si sente parte integrante di un gruppo di creativi.",
+      en: "Elena felt alone and intimidated by events. OpenLib gave her a safe environment to connect with others, and now she feels part of a creative group.",
+    },
+    tags: ["#SocialSkills", "#CommunityEngagement"],
+  },
+  {
+    name: "Marco",
+    image: "assets/community-marco.png",
+    cardTheme: "lips",
+    labelTheme: "choco",
+    quote: {
+      it: "Da solo su YouTube mi perdevo. Qui ho trovato amici e un mentore.",
+      en: "Alone on YouTube I got lost. Here I found friends and a mentor.",
+    },
+    body: {
+      it: "Marco era un programmatore online bloccato. In OpenLib ha trovato un peer-tutor che gli ha spiegato le basi e una community di amici con cui fare networking. La sua esperienza prova che l'apprendimento è più forte se fatto insieme.",
+      en: "Marco was stuck learning programming online. At OpenLib he found a peer tutor, the basics he needed and a community of friends to network with.",
+    },
+    tags: ["#H2H", "#CommunityStories"],
+  },
+  {
+    name: "Tommaso",
+    image: "assets/community-tommaso.png",
+    cardTheme: "chick",
+    labelTheme: "lips",
+    quote: {
+      it: "Un viaggio che non avrei mai immaginato.",
+      en: "A journey I never would have imagined.",
+    },
+    body: {
+      it: "Tommaso ha iniziato come un semplice osservatore nella community di OpenLib. Dopo aver partecipato a vari workshop, ora conduce sessioni per altri, dimostrando che chiunque può diventare un leader.",
+      en: "Tommaso started as a quiet observer in the OpenLib community. After joining workshops, he now leads sessions for others and proves anyone can become a leader.",
+    },
+    tags: ["#GrowthMindset", "#Leadership"],
   },
 ];
 
@@ -639,6 +759,78 @@ function selectCourse(eventId) {
   renderCourses();
 }
 
+function renderCommunityCard(story, index) {
+  const quote = getLocalizedValue(story.quote);
+  const body = getLocalizedValue(story.body);
+  const isActive = index === appState.activeCommunityIndex;
+  const ariaLabel = formatCopy("communityStoryAria", {
+    position: index + 1,
+    total: communityStories.length,
+    name: story.name,
+  });
+
+  return `
+    <article
+      class="community-card community-theme--${story.cardTheme}${isActive ? " is-active" : ""}"
+      data-community-card
+      data-community-index="${index}"
+      aria-current="${isActive ? "true" : "false"}"
+      aria-label="${escapeHtml(ariaLabel)}"
+    >
+      <div class="community-card__content">
+        <div class="community-card__header">
+          <span class="community-card__avatar">
+            <img src="${escapeHtml(story.image)}" alt="${escapeHtml(story.name)}" loading="lazy">
+          </span>
+          <span class="community-card__name community-label--${story.labelTheme}">${escapeHtml(story.name)}</span>
+        </div>
+        <div class="community-card__story">
+          <blockquote>&ldquo;${escapeHtml(quote)}&rdquo;</blockquote>
+          <p>${escapeHtml(body)}</p>
+        </div>
+      </div>
+      <div class="community-card__tags">
+        ${story.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}
+      </div>
+    </article>
+  `;
+}
+
+function updateCommunityCarousel(shouldScroll = true) {
+  const viewport = document.querySelector("[data-community-viewport]");
+  const cards = document.querySelectorAll("[data-community-card]");
+
+  cards.forEach((card, index) => {
+    const isActive = index === appState.activeCommunityIndex;
+    card.classList.toggle("is-active", isActive);
+    card.setAttribute("aria-current", String(isActive));
+  });
+
+  const activeCard = cards[appState.activeCommunityIndex];
+
+  if (shouldScroll && viewport && activeCard) {
+    viewport.scrollTo({ left: activeCard.offsetLeft, behavior: "smooth" });
+  }
+}
+
+function renderCommunityCarousel() {
+  const track = document.querySelector("[data-community-track]");
+
+  if (!track) {
+    return;
+  }
+
+  track.innerHTML = communityStories.map(renderCommunityCard).join("");
+  updateCommunityCarousel(false);
+}
+
+function selectCommunityStory(index) {
+  const normalizedIndex = (index + communityStories.length) % communityStories.length;
+
+  appState.activeCommunityIndex = normalizedIndex;
+  updateCommunityCarousel();
+}
+
 function setDocumentLanguage() {
   document.documentElement.lang = appState.language;
   document.title = getCopy("documentTitle");
@@ -671,6 +863,7 @@ function applyLanguage() {
   setLanguageToggle();
   renderLibraryCard();
   renderCourses();
+  renderCommunityCarousel();
 }
 
 function toggleLanguage() {
@@ -753,6 +946,40 @@ function bindCourses() {
   });
 }
 
+function bindCommunityCarousel() {
+  const previousButton = document.querySelector("[data-community-prev]");
+  const nextButton = document.querySelector("[data-community-next]");
+  const track = document.querySelector("[data-community-track]");
+
+  previousButton?.addEventListener("click", () => {
+    selectCommunityStory(appState.activeCommunityIndex - 1);
+  });
+
+  nextButton?.addEventListener("click", () => {
+    selectCommunityStory(appState.activeCommunityIndex + 1);
+  });
+
+  track?.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+
+    const card = event.target.closest("[data-community-card]");
+
+    if (!card) {
+      return;
+    }
+
+    const cardIndex = Number(card.dataset.communityIndex);
+
+    if (Number.isNaN(cardIndex)) {
+      return;
+    }
+
+    selectCommunityStory(cardIndex);
+  });
+}
+
 function markAppReady() {
   document.body.classList.add("is-ready");
 }
@@ -761,6 +988,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindNavigation();
   bindMap();
   bindCourses();
+  bindCommunityCarousel();
   applyLanguage();
   markAppReady();
 });
