@@ -273,9 +273,28 @@
 </defs>
 </svg>
 
-          <div class="map-tooltip" data-map-tooltip role="status" aria-live="polite" hidden>
-            <strong data-map-tooltip-title>Biblioteca OpenLib</strong>
-            <span data-map-tooltip-body>Punto biblioteca della rete OpenLib.</span>
+          <div class="map-tooltip" data-map-tooltip role="dialog" aria-label="Biblioteca OpenLib" hidden>
+            <span class="map-tooltip__pin" aria-hidden="true"></span>
+            <article class="map-tooltip__card">
+              <img class="map-tooltip__photo" src="assets/library-feltrinelli.png" alt="" data-map-tooltip-photo>
+              <div class="map-tooltip__details">
+                <h3 data-map-tooltip-name>Giangiacomo Feltrinelli</h3>
+                <address>
+                  <strong data-map-tooltip-address>Viale Pasubio, 5, 20154</strong>
+                  <span data-map-tooltip-city>Milano (MI)</span>
+                </address>
+                <div class="map-tooltip__hours">
+                  <strong data-map-tooltip-days>Lun - Ven</strong>
+                  <span data-map-tooltip-time-one>09:30 - 11:30</span>
+                  <span data-map-tooltip-time-two>14:00 - 17:30</span>
+                </div>
+                <a href="tel:+39024958341" data-map-tooltip-phone>02 495 8341</a>
+              </div>
+              <div class="map-tooltip__actions">
+                <a class="button button--primary map-tooltip__course" href="#courses" data-i18n="mapCoursesCta">Corsi</a>
+                <a class="map-tooltip__directions" href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer" aria-label="Apri mappa" data-i18n-aria-label="mapDirectionsAria">↗</a>
+              </div>
+            </article>
           </div>
 
             <div class="map-content">

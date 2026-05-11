@@ -74,8 +74,6 @@ const translations = {
     mapRequestCta: "Scrivici",
     mapKicker: "Dove trovarci",
     mapLibraryAria: "Punto biblioteca OpenLib {number}",
-    mapTooltipTitle: "Biblioteca OpenLib",
-    mapTooltipBody: "Punto biblioteca della rete OpenLib. I dettagli saranno disponibili nel prototipo finale.",
     mapPartnerLabel: "Biblioteca partner verificata",
     mapCoursesCta: "Corsi",
     mapDirectionsAria: "Apri mappa",
@@ -199,8 +197,6 @@ const translations = {
     mapRequestCta: "Write to us",
     mapKicker: "Where to find us",
     mapLibraryAria: "OpenLib library point {number}",
-    mapTooltipTitle: "OpenLib library",
-    mapTooltipBody: "Library point in the OpenLib network. Details will be available in the final prototype.",
     mapPartnerLabel: "Verified library partner",
     mapCoursesCta: "Courses",
     mapDirectionsAria: "Open map",
@@ -840,33 +836,81 @@ function renderMapTitle() {
 
 function setMapLibraryLabels() {
   document.querySelectorAll("[data-map-library]").forEach((library, index) => {
+    const tooltipLibrary = getMapTooltipLibrary(index);
+
     library.setAttribute("role", "button");
     library.setAttribute("tabindex", "0");
     library.setAttribute("aria-pressed", String(appState.activeMapLibraryIndex === index));
-    library.setAttribute("aria-label", formatCopy("mapLibraryAria", { number: index + 1 }));
+    library.setAttribute("aria-label", `${formatCopy("mapLibraryAria", { number: index + 1 })}: ${tooltipLibrary.name}`);
   });
 
   if (appState.activeMapLibraryIndex !== null) {
-    renderMapTooltipCopy();
+    renderMapTooltipContent(getMapTooltipLibrary(appState.activeMapLibraryIndex));
   }
 }
 
-function renderMapTooltipCopy() {
+function getMapTooltipLibrary(index) {
+  return libraries[index] || libraries[0];
+}
+
+function getLibraryHoursParts(library) {
+  const [days = "", times = ""] = getLocalizedValue(library.hours).split("·").map((part) => part.trim());
+  const [timeOne = "", timeTwo = ""] = times.split("/").map((part) => part.trim());
+
+  return { days, timeOne, timeTwo };
+}
+
+function renderMapTooltipContent(library) {
   const tooltip = document.querySelector("[data-map-tooltip]");
 
-  if (!tooltip || tooltip.hidden) {
+  if (!tooltip) {
     return;
   }
 
-  const title = tooltip.querySelector("[data-map-tooltip-title]");
-  const body = tooltip.querySelector("[data-map-tooltip-body]");
+  const photo = tooltip.querySelector("[data-map-tooltip-photo]");
+  const name = tooltip.querySelector("[data-map-tooltip-name]");
+  const address = tooltip.querySelector("[data-map-tooltip-address]");
+  const city = tooltip.querySelector("[data-map-tooltip-city]");
+  const days = tooltip.querySelector("[data-map-tooltip-days]");
+  const timeOne = tooltip.querySelector("[data-map-tooltip-time-one]");
+  const timeTwo = tooltip.querySelector("[data-map-tooltip-time-two]");
+  const phone = tooltip.querySelector("[data-map-tooltip-phone]");
+  const hours = getLibraryHoursParts(library);
 
-  if (title) {
-    title.textContent = getCopy("mapTooltipTitle");
+  tooltip.setAttribute("aria-label", library.name);
+
+  if (photo) {
+    photo.setAttribute("src", library.photo);
   }
 
-  if (body) {
-    body.textContent = getCopy("mapTooltipBody");
+  if (name) {
+    name.textContent = library.name;
+  }
+
+  if (address) {
+    address.textContent = library.address;
+  }
+
+  if (city) {
+    city.textContent = library.city;
+  }
+
+  if (days) {
+    days.textContent = hours.days;
+  }
+
+  if (timeOne) {
+    timeOne.textContent = hours.timeOne;
+  }
+
+  if (timeTwo) {
+    timeTwo.textContent = hours.timeTwo;
+    timeTwo.hidden = !hours.timeTwo;
+  }
+
+  if (phone) {
+    phone.textContent = library.phone;
+    phone.setAttribute("href", `tel:${library.phone.replace(/[^\d+]/g, "")}`);
   }
 }
 
@@ -885,6 +929,30 @@ function hideMapTooltip() {
   });
 }
 
+function positionMapTooltip(tooltip, clientX, clientY) {
+  const viewportMargin = 16;
+  const pinRadius = 16.5;
+  const tooltipWidth = tooltip.offsetWidth;
+  const tooltipHeight = tooltip.offsetHeight;
+  const hasSpaceRight = clientX - pinRadius + tooltipWidth <= window.innerWidth - viewportMargin;
+  const hasSpaceLeft = clientX + pinRadius - tooltipWidth >= viewportMargin;
+  const hasSpaceAbove = clientY - tooltipHeight + pinRadius >= viewportMargin;
+  const hasSpaceBelow = clientY - pinRadius + tooltipHeight <= window.innerHeight - viewportMargin;
+  const placementX = hasSpaceRight || !hasSpaceLeft ? "right" : "left";
+  const placementY = hasSpaceAbove || !hasSpaceBelow ? "above" : "below";
+  const rawLeft = placementX === "right" ? clientX - pinRadius : clientX + pinRadius - tooltipWidth;
+  const rawTop = placementY === "above" ? clientY + pinRadius - tooltipHeight : clientY - pinRadius;
+  const maxLeft = Math.max(viewportMargin, window.innerWidth - tooltipWidth - viewportMargin);
+  const maxTop = Math.max(viewportMargin, window.innerHeight - tooltipHeight - viewportMargin);
+  const left = Math.min(Math.max(rawLeft, viewportMargin), maxLeft);
+  const top = Math.min(Math.max(rawTop, viewportMargin), maxTop);
+
+  tooltip.dataset.placementX = placementX;
+  tooltip.dataset.placementY = placementY;
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
 function showMapTooltip(library, clientX, clientY) {
   const panel = library.closest(".map-panel");
   const tooltip = panel?.querySelector("[data-map-tooltip]");
@@ -893,16 +961,15 @@ function showMapTooltip(library, clientX, clientY) {
     return;
   }
 
-  const panelRect = panel.getBoundingClientRect();
   const libraries = Array.from(document.querySelectorAll("[data-map-library]"));
   const index = libraries.indexOf(library);
-  const x = Math.min(Math.max(clientX - panelRect.left, 118), panelRect.width - 118);
-  const y = Math.min(Math.max(clientY - panelRect.top, 92), panelRect.height - 24);
 
   appState.activeMapLibraryIndex = index;
-  tooltip.style.left = `${x}px`;
-  tooltip.style.top = `${y}px`;
+  renderMapTooltipContent(getMapTooltipLibrary(index));
   tooltip.hidden = false;
+  tooltip.style.visibility = "hidden";
+  positionMapTooltip(tooltip, clientX, clientY);
+  tooltip.style.visibility = "";
 
   libraries.forEach((item, itemIndex) => {
     const isActive = itemIndex === index;
@@ -910,7 +977,7 @@ function showMapTooltip(library, clientX, clientY) {
     item.setAttribute("aria-pressed", String(isActive));
   });
 
-  renderMapTooltipCopy();
+  tooltip.focus?.({ preventScroll: true });
 }
 
 function getActiveLibrary() {
@@ -1483,9 +1550,7 @@ function bindMap() {
       return;
     }
 
-    if (!mapPanel.contains(event.target)) {
-      hideMapTooltip();
-    }
+    hideMapTooltip();
   });
 
   document.addEventListener("keydown", (event) => {
