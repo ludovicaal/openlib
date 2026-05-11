@@ -737,8 +737,8 @@ const faqItems = [
       en: "Is the service really free?",
     },
     answer: {
-      it: "Sì. OpenLib usa spazi culturali già presenti nel quartiere e si basa sullo scambio peer-to-peer: chi insegna dona una competenza, chi impara partecipa senza barriere economiche.",
-      en: "Yes. OpenLib uses cultural spaces that already exist in the neighborhood and is based on peer-to-peer exchange: teachers share a skill and learners join without economic barriers.",
+      it: "Sì, assolutamente. La nostra filosofia si basa sul dono del sapere e sulla reciprocità. Non ci sono costi di iscrizione né rette mensili. L'unico investimento richiesto è il tuo tempo e la tua voglia di metterti in gioco.",
+      en: "Yes, absolutely. Our philosophy is based on the gift of knowledge and reciprocity. There are no registration costs or monthly fees. The only investment required is your time and your willingness to get involved.",
     },
   },
   {
@@ -748,8 +748,8 @@ const faqItems = [
       en: "What kind of skills can I find in my neighborhood?",
     },
     answer: {
-      it: "Ogni punto OpenLib costruisce il programma con la propria comunità: lingue, digitale, arti visive, storia locale, comunicazione, musica e competenze pratiche proposte dagli abitanti.",
-      en: "Each OpenLib point builds its programme with its community: languages, digital skills, visual arts, local history, communication, music and practical skills proposed by residents.",
+      it: "Dalla cucina tradizionale alla riparazione di piccoli elettrodomestici, dalle lingue straniere al giardinaggio urbano, fino al coding o alla storia locale. Le competenze dipendono dalle persone che vivono accanto a te: ogni quartiere ha una ricchezza unica da scoprire.",
+      en: "From traditional cooking to repairing small appliances, from foreign languages to urban gardening, all the way to coding or local history. Skills depend on the people who live next to you: every neighborhood has a unique richness to discover.",
     },
   },
   {
@@ -759,19 +759,19 @@ const faqItems = [
       en: "How do I join a meeting?",
     },
     answer: {
-      it: "Scegli un corso dal calendario, compila il form Studenti e aspetta la conferma. I posti sono limitati per mantenere gli incontri piccoli, accessibili e curati.",
-      en: "Choose a course from the calendar, complete the Students form and wait for confirmation. Seats are limited so meetings stay small, accessible and well cared for.",
+      it: "È semplicissimo: compila il form studenti inserendo la biblioteca, l'incontro che ti interessa e prenota il tuo posto. Riceverai per mail i dettagli sull'orario e sullo spazio comune che ospiterà la sessione.",
+      en: "It is very simple: complete the students form with the library and meeting you are interested in, then reserve your place. You will receive the details by email, including the time and shared space that will host the session.",
     },
   },
   {
     id: "mentor",
     question: {
-      it: "Chiunque può diventare un mentore di quartiere?",
+      it: "Chiunque può diventare un \"mentore di quartiere\"?",
       en: "Can anyone become a neighborhood mentor?",
     },
     answer: {
-      it: "Sì, se ha una competenza concreta da condividere e accetta le regole della community. La biblioteca partner aiuta con una verifica leggera, spazi adatti e feedback dopo gli incontri.",
-      en: "Yes, if they have a concrete skill to share and accept the community rules. The partner library supports a light verification, suitable spaces and feedback after each meeting.",
+      it: "Sì. Non sono obbligatorie certificazioni accademiche o titoli particolari. Se sai fare qualcosa bene e hai il desiderio di condividerlo con gli altri, sei la persona giusta. Che tu sia un artigiano in pensione, uno studente universitario o un professionista, il tuo sapere ha valore.",
+      en: "Yes. Academic certifications or special qualifications are not required. If you know how to do something well and want to share it with others, you are the right person. Whether you are a retired craftsperson, a university student or a professional, your knowledge has value.",
     },
   },
   {
@@ -781,8 +781,8 @@ const faqItems = [
       en: "How much time do I need to dedicate?",
     },
     answer: {
-      it: "Puoi iniziare con un singolo incontro o proporre un ciclo breve. OpenLib è pensato per adattarsi ai ritmi delle persone, non per aggiungere pressione.",
-      en: "You can start with a single meeting or propose a short cycle. OpenLib is designed around people's rhythms, not to add pressure.",
+      it: "Decidi tu. Può essere un incontro unico o un appuntamento ricorrente una volta al mese. La flessibilità è totale, in base alla tua disponibilità.",
+      en: "You decide. It can be a single meeting or a recurring appointment once a month. Flexibility is total and depends on your availability.",
     },
   },
   {
@@ -792,8 +792,8 @@ const faqItems = [
       en: "My neighborhood is not active yet. What can I do?",
     },
     answer: {
-      it: "Scrivici dal form Info: raccogliamo richieste, contatti di biblioteche e disponibilità di mentori per capire dove aprire i prossimi punti OpenLib.",
-      en: "Write to us through the Info form: we collect requests, library contacts and mentor availability to understand where to open the next OpenLib points.",
+      it: "Siamo in continua espansione! Se vuoi portare questo modello nella tua zona, puoi segnalarcelo scrivendoci una mail. Ti aiuteremo a mappare le competenze locali e a trovare i primi spazi disponibili.",
+      en: "We are constantly expanding. If you want to bring this model to your area, you can let us know by email. We will help you map local skills and find the first available spaces.",
     },
   },
 ];
