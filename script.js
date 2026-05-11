@@ -24,6 +24,39 @@ const translations = {
     heroChipShare: "Condividi la tua.",
     heroChipFree: "Gratis.",
     heroChipsAria: "Azioni principali OpenLib",
+    storyKicker: "La nostra storia",
+    storyTitle: "Il tuo quartiere è il nostro punto di partenza.",
+    storyBody:
+      "Nel tuo quartiere esistevano già tutte le competenze di cui avevi bisogno, ma nessuno le aveva ancora rese accessibili. Abbiamo osservato i quartieri delle nostre città e abbiamo visto un paradosso evidente: da un lato persone con competenze preziose e nessuno spazio per condividerle, dall'altro persone che vogliono imparare ma non possono permettersi di farlo.",
+    storyStatsAria: "Dati sul contesto bibliotecario",
+    statLibrariesNumber: "8.131",
+    statLibrariesLabel: "Biblioteche pubbliche in Italia",
+    statUnusedNumber: "40%",
+    statUnusedLabel: "Aule inutilizzate",
+    missionKicker: "La nostra missione",
+    missionTitle:
+      "Una comunità dove chiunque può insegnare e imparare, alla pari, senza barriere.",
+    missionBody:
+      "Nasciamo dalla consapevolezza che il sapere è già nella comunità. In un'epoca in cui l'intelligenza artificiale risponde a qualsiasi domanda in pochi secondi, abbiamo scelto deliberatamente la direzione opposta: quella delle persone. Siamo convinti che nessuna tecnologia possa sostituire il valore di imparare da qualcuno che ha vissuto quello che insegna.",
+    missionStatsAria: "Dati su biblioteche e apprendimento informale",
+    statVisitorsNumber: "10,2%",
+    statVisitorsLabel: "Italiani che frequentano le biblioteche",
+    statInformalNumber: "67,7%",
+    statInformalLabel: "Vogliono imparare informalmente",
+    beliefKicker: "Il nostro credo",
+    beliefTitle: "Non siamo solo una piattaforma.",
+    beliefBody:
+      "Le biblioteche del tuo quartiere non sono mai state solo luoghi di scaffali pieni di libri e silenzio. Crediamo che le biblioteche possano essere anche spazi di comunità, incontro e cultura. Trasformiamo ogni spazio inutilizzato in un'aula viva dove il sapere circola liberamente, le persone si incontrano alla pari e l'apprendimento torna ad essere quello che è sempre stato: un atto profondamente umano e gratuito.",
+    valuesAria: "Valori OpenLib",
+    valueHumanTitle: "Human Centered.",
+    valueHumanBody:
+      "Crediamo che il sapere più autentico nasca dall'incontro tra persone reali, non dalla risposta di una macchina.",
+    valuePeerTitle: "Peer-to-peer learning.",
+    valuePeerBody:
+      "Crediamo in un apprendimento equo accessibile a tutti, indipendentemente dal reddito, dall'età o dal background.",
+    valueFreeTitle: "Gratuito.",
+    valueFreeBody:
+      "Siamo convinti che il sapere non abbia prezzo. Chiunque merita di imparare qualcosa di nuovo ogni giorno.",
   },
   en: {
     documentTitle: "OpenLib | A distributed campus in your library",
@@ -45,6 +78,39 @@ const translations = {
     heroChipShare: "Share yours.",
     heroChipFree: "Free.",
     heroChipsAria: "OpenLib primary actions",
+    storyKicker: "Our story",
+    storyTitle: "Your neighborhood is our starting point.",
+    storyBody:
+      "In your neighborhood, the skills you needed already existed, but no one had made them accessible yet. We observed our cities' neighborhoods and saw a clear paradox: on one side, people with valuable skills and no space to share them; on the other, people who want to learn but cannot afford to do it.",
+    storyStatsAria: "Library context data",
+    statLibrariesNumber: "8,131",
+    statLibrariesLabel: "Public libraries in Italy",
+    statUnusedNumber: "40%",
+    statUnusedLabel: "Unused rooms",
+    missionKicker: "Our mission",
+    missionTitle:
+      "A community where anyone can teach and learn, as peers, without barriers.",
+    missionBody:
+      "We start from the belief that knowledge already lives inside the community. In a time when artificial intelligence can answer almost any question in seconds, we deliberately chose the opposite direction: people. We believe no technology can replace the value of learning from someone who has lived what they teach.",
+    missionStatsAria: "Data about libraries and informal learning",
+    statVisitorsNumber: "10.2%",
+    statVisitorsLabel: "Italians who visit libraries",
+    statInformalNumber: "67.7%",
+    statInformalLabel: "Want to learn informally",
+    beliefKicker: "Our belief",
+    beliefTitle: "We are not just a platform.",
+    beliefBody:
+      "The libraries in your neighborhood have never been just places of silent shelves full of books. We believe libraries can also be spaces for community, encounter and culture. We turn every unused space into a living classroom where knowledge moves freely, people meet as peers and learning becomes what it has always been: a deeply human and free act.",
+    valuesAria: "OpenLib values",
+    valueHumanTitle: "Human-centered.",
+    valueHumanBody:
+      "We believe the most authentic knowledge comes from encounters between real people, not from a machine's answer.",
+    valuePeerTitle: "Peer-to-peer learning.",
+    valuePeerBody:
+      "We believe in fair learning that is accessible to everyone, regardless of income, age or background.",
+    valueFreeTitle: "Free.",
+    valueFreeBody:
+      "We believe knowledge should not have a price. Everyone deserves to learn something new every day.",
   },
 };
 
