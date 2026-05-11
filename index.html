@@ -12,17 +12,85 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Salta al contenuto principale</a>
+    <a class="skip-link" href="#main-content" data-i18n="skipLink">Salta al contenuto principale</a>
 
     <div class="site-shell" data-app-shell>
+      <header class="site-header" data-site-header>
+        <nav class="nav" aria-label="Navigazione principale" data-i18n-aria-label="navLabel">
+          <a class="brand" href="#hero" aria-label="OpenLib home">
+            <img src="assets/openlib-logo.svg" width="106" height="17" alt="OpenLib">
+          </a>
+
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-controls="site-menu"
+            aria-expanded="false"
+            data-menu-toggle
+          >
+            <span class="menu-toggle__bar" aria-hidden="true"></span>
+            <span class="sr-only" data-i18n="menuOpen">Apri menu</span>
+          </button>
+
+          <div id="site-menu" class="nav-menu" data-nav-menu>
+            <div class="nav-links" data-nav-links>
+              <a href="#about" data-i18n="navAbout">Chi siamo</a>
+              <a href="#courses" data-i18n="navCourses">Corsi</a>
+            </div>
+
+            <div class="nav-actions">
+              <a class="icon-button" href="#faq" aria-label="FAQ" data-i18n-aria-label="faqAria">?</a>
+              <a class="button button--primary" href="#signup" data-i18n="navSignup">Iscriviti</a>
+              <button
+                class="language-toggle"
+                type="button"
+                aria-label="Passa alla versione inglese"
+                data-language-toggle
+                data-i18n-aria-label="languageToggleAria"
+              >
+                <img src="assets/flag-it.svg" width="22" height="22" alt="" data-language-flag>
+                <span class="sr-only" data-language-label>IT</span>
+                <span class="language-toggle__chevron" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </nav>
+      </header>
+
       <main id="main-content" class="page-flow" tabindex="-1">
-        <div class="section-placeholder" aria-label="OpenLib prototype foundation">
-          <p class="eyebrow">OpenLib prototype</p>
-          <h1>Foundation ready.</h1>
-          <p>
-            Le sezioni del sito verranno implementate una alla volta dopo approvazione esplicita.
-          </p>
-        </div>
+        <section id="hero" class="hero" aria-labelledby="hero-title">
+          <div class="hero__content">
+            <div class="hero__copy">
+              <h1 id="hero-title" class="hero__title" data-i18n="heroTitle">
+                Where your library feels like home. Knowledge lives next door.
+              </h1>
+              <p class="hero__subtitle" data-i18n="heroSubtitle">
+                Colleghiamo chi vuole imparare con chi sa già farlo. La tua biblioteca di quartiere diventa uno spazio vivo.
+              </p>
+            </div>
+
+            <div class="hero__chips" aria-label="Azioni principali OpenLib" data-i18n-aria-label="heroChipsAria">
+              <a class="hero-chip hero-chip--learn" href="#courses">
+                <span class="hero-chip__icon hero-chip__icon--senape" aria-hidden="true">
+                  <img src="assets/hero-skill-icon.svg" alt="">
+                </span>
+                <span data-i18n="heroChipLearn">Trova una skill.</span>
+              </a>
+              <a class="hero-chip hero-chip--share" href="#signup">
+                <span class="hero-chip__icon hero-chip__icon--senape" aria-hidden="true">
+                  <img src="assets/hero-share-icon.svg" alt="">
+                </span>
+                <span data-i18n="heroChipShare">Condividi la tua.</span>
+              </a>
+              <a class="hero-chip hero-chip--free" href="#about">
+                <span class="hero-chip__icon hero-chip__icon--light" aria-hidden="true">
+                  <img src="assets/hero-free-icon.svg" alt="">
+                </span>
+                <span data-i18n="heroChipFree">Gratis.</span>
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   </body>
