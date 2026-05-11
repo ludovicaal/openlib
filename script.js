@@ -117,11 +117,13 @@ const translations = {
     formTabStudents: "Studenti",
     formTabTeachers: "Insegnanti",
     formTabInfo: "Info",
-    formPrivacyText:
-      "Ho letto e accetto la Privacy Policy di OpenLib. Il trattamento dei tuoi dati avviene nel rispetto del GDPR (Reg. UE 2016/679).",
-    formUpdatesText:
-      "Acconsento alla ricezione di comunicazioni e aggiornamenti da parte di OpenLib. Puoi revocare il consenso in qualsiasi momento.",
-    formSubmit: "Invia",
+    formPrivacyIntro: "Ho letto e accetto la ",
+    formPrivacyLink: "Privacy Policy",
+    formPrivacyOutro: " di OpenLib.",
+    formPrivacyGdpr: "Il trattamento dei tuoi dati avviene nel rispetto del GDPR (Reg. UE 2016/679).",
+    formUpdatesIntro: "Acconsento alla ricezione di comunicazioni e aggiornamenti da parte di OpenLib.",
+    formUpdatesRevoke: "Puoi revocare il consenso in qualsiasi momento.",
+    formSubmit: "Label",
     formErrorRequired: "Compila i campi obbligatori e accetta la Privacy Policy per continuare.",
     formSuccessMessage: "Richiesta ricevuta per {role}. Ti scriveremo con i prossimi passi.",
     faqKicker: "FAQ",
@@ -238,10 +240,13 @@ const translations = {
     formTabStudents: "Students",
     formTabTeachers: "Teachers",
     formTabInfo: "Info",
-    formPrivacyText:
-      "I have read and accept OpenLib's Privacy Policy. Your data is processed in compliance with GDPR (EU Reg. 2016/679).",
-    formUpdatesText: "I agree to receive communications and updates from OpenLib. You can withdraw consent at any time.",
-    formSubmit: "Send",
+    formPrivacyIntro: "I have read and accept OpenLib's ",
+    formPrivacyLink: "Privacy Policy",
+    formPrivacyOutro: ".",
+    formPrivacyGdpr: "Your data is processed in compliance with GDPR (EU Reg. 2016/679).",
+    formUpdatesIntro: "I agree to receive communications and updates from OpenLib.",
+    formUpdatesRevoke: "You can withdraw consent at any time.",
+    formSubmit: "Label",
     formErrorRequired: "Complete the required fields and accept the Privacy Policy to continue.",
     formSuccessMessage: "Request received for {role}. We will write to you with the next steps.",
     faqKicker: "FAQ",
@@ -569,10 +574,19 @@ const communityStories = [
 const formTabData = {
   students: {
     labelKey: "formTabStudents",
-    title: {
-      it: "Prenota un posto e impara con noi!",
-      en: "Reserve a seat and learn with us!",
+    variant: "students",
+    illustration: {
+      src: "assets/illustration-forms.png",
+      width: 913,
+      height: 1157,
     },
+    titleLines: [
+      [{ text: { it: "Prenota un posto", en: "Reserve a seat" } }],
+      [
+        { text: { it: "e", en: "and" } },
+        { text: { it: " impara con noi!", en: " learn with us!" }, accent: true },
+      ],
+    ],
     fields: [
       {
         name: "city",
@@ -610,46 +624,36 @@ const formTabData = {
   },
   teachers: {
     labelKey: "formTabTeachers",
-    title: {
-      it: "Proponi una skill e insegna in biblioteca.",
-      en: "Offer a skill and teach in the library.",
+    variant: "teachers",
+    illustration: {
+      src: "assets/illustration-teachers.png",
+      width: 1716,
+      height: 1053,
     },
+    titleLines: [
+      [
+        { text: { it: "Insegnare", en: "Teaching" }, accent: true },
+        { text: { it: " è il", en: " is" } },
+      ],
+      [{ text: { it: "modo più bello", en: "the best way" } }],
+      [{ text: { it: "di imparare.", en: "to learn." } }],
+    ],
     fields: [
       {
-        name: "city",
-        type: "select",
-        required: true,
-        label: { it: "Città", en: "City" },
-        placeholder: { it: "Seleziona la città", en: "Select your city" },
-        options: ["Milano"],
-      },
-      {
-        name: "skill",
+        name: "firstName",
         type: "text",
         required: true,
-        label: { it: "Skill da condividere", en: "Skill to share" },
-        placeholder: { it: "Es. fotografia, coding, scrittura", en: "E.g. photography, coding, writing" },
+        autocomplete: "given-name",
+        label: { it: "Nome", en: "First name" },
+        placeholder: { it: "Inserisci il tuo nome", en: "Enter your first name" },
       },
       {
-        name: "place",
-        type: "select",
+        name: "lastName",
+        type: "text",
         required: true,
-        label: { it: "Spazio preferito", en: "Preferred space" },
-        placeholder: { it: "Scegli una biblioteca", en: "Choose a library" },
-        options: ["Giangiacomo Feltrinelli", "Biblioteca Venezia", "Palazzo Sormani", "Pinacoteca Ambrosiana"],
-      },
-      {
-        name: "availability",
-        type: "select",
-        required: true,
-        label: { it: "Disponibilità", en: "Availability" },
-        placeholder: { it: "Quando puoi insegnare?", en: "When can you teach?" },
-        options: [
-          { it: "Mattina", en: "Morning" },
-          { it: "Pomeriggio", en: "Afternoon" },
-          { it: "Sera", en: "Evening" },
-          { it: "Weekend", en: "Weekend" },
-        ],
+        autocomplete: "family-name",
+        label: { it: "Cognome", en: "Last name" },
+        placeholder: { it: "Inserisci il tuo cognome", en: "Enter your last name" },
       },
       {
         name: "email",
@@ -658,51 +662,68 @@ const formTabData = {
         autocomplete: "email",
         label: { it: "Email", en: "Email" },
         placeholder: { it: "Inserisci la tua email", en: "Enter your email" },
+      },
+      {
+        name: "bio",
+        type: "textarea",
+        required: true,
+        size: "large",
+        label: { it: "Breve presentazione", en: "Short introduction" },
+        placeholder: { it: "Massimo 100 parole", en: "Maximum 100 words" },
+      },
+      {
+        name: "proposal",
+        type: "text",
+        required: true,
+        label: { it: "Proposta didattica", en: "Teaching proposal" },
+        placeholder: { it: "Indica il corso", en: "Name the course" },
+      },
+      {
+        name: "certificate",
+        type: "file",
+        accept: ".pdf,.jpg,.jpeg,.png",
+        label: { it: "Certificato valido", en: "Valid certificate" },
+        placeholder: { it: "Trascina o carica qui", en: "Drag or upload here" },
       },
     ],
   },
   info: {
     labelKey: "formTabInfo",
-    title: {
-      it: "Hai una domanda? Scrivici qui.",
-      en: "Have a question? Write to us here.",
+    variant: "info",
+    illustration: {
+      src: "assets/illustration-info.png",
+      width: 925,
+      height: 1244,
     },
+    titleLines: [
+      [{ text: { it: "Hai una domanda", en: "Have a question" } }],
+      [{ text: { it: "o semplicemente", en: "or simply" } }],
+      [{ text: { it: "una curiosità?", en: "curious?" } }],
+      [{ text: { it: "Scrivici.", en: "Write to us." }, accent: true }],
+    ],
     fields: [
-      {
-        name: "name",
-        type: "text",
-        required: true,
-        autocomplete: "name",
-        label: { it: "Nome", en: "Name" },
-        placeholder: { it: "Come ti chiami?", en: "What is your name?" },
-      },
-      {
-        name: "topic",
-        type: "select",
-        required: true,
-        label: { it: "Tema", en: "Topic" },
-        placeholder: { it: "Seleziona il tema", en: "Select the topic" },
-        options: [
-          { it: "Aprire un punto OpenLib", en: "Open an OpenLib point" },
-          { it: "Partnership biblioteca", en: "Library partnership" },
-          { it: "Stampa e progetto", en: "Press and project" },
-          { it: "Altro", en: "Other" },
-        ],
-      },
-      {
-        name: "message",
-        type: "textarea",
-        required: true,
-        label: { it: "Messaggio", en: "Message" },
-        placeholder: { it: "Raccontaci di cosa hai bisogno", en: "Tell us what you need" },
-      },
       {
         name: "email",
         type: "email",
         required: true,
         autocomplete: "email",
         label: { it: "Email", en: "Email" },
-        placeholder: { it: "Inserisci la tua email", en: "Enter your email" },
+        placeholder: { it: "Inserisci il tuo nome", en: "Enter your name" },
+      },
+      {
+        name: "subject",
+        type: "text",
+        required: true,
+        label: { it: "Oggetto", en: "Subject" },
+        placeholder: { it: "Inserisci il tuo cognome", en: "Enter your last name" },
+      },
+      {
+        name: "message",
+        type: "textarea",
+        required: true,
+        size: "large",
+        label: { it: "Messaggio", en: "Message" },
+        placeholder: { it: "100 parole max", en: "100 words max" },
       },
     ],
   },
@@ -1261,6 +1282,21 @@ function getActiveFormData() {
   return formTabData[appState.activeFormTab] || formTabData.students;
 }
 
+function renderFormTitle(formData) {
+  return formData.titleLines
+    .map((line) => {
+      const lineContent = line
+        .map((part) => {
+          const text = escapeHtml(getLocalizedValue(part.text));
+          return part.accent ? `<span class="signup-title__accent">${text}</span>` : text;
+        })
+        .join("");
+
+      return `<span class="signup-title__line">${lineContent}</span>`;
+    })
+    .join("");
+}
+
 function renderFormControl(field, id) {
   const placeholder = getLocalizedValue(field.placeholder);
   const required = field.required ? " required aria-required=\"true\"" : "";
@@ -1278,6 +1314,23 @@ function renderFormControl(field, id) {
         <option value="">${escapeHtml(placeholder)}</option>
         ${options}
       </select>
+    `;
+  }
+
+  if (field.type === "file") {
+    const accept = field.accept ? ` accept="${escapeHtml(field.accept)}"` : "";
+
+    return `
+      <input
+        class="sr-only form-field__file-input"
+        id="${escapeHtml(id)}"
+        type="file"
+        name="${escapeHtml(field.name)}"${accept}${required}
+      >
+      <span class="form-upload">
+        <img src="assets/icon-upload.svg" width="27" height="24" alt="" aria-hidden="true">
+        <span>${escapeHtml(placeholder)}</span>
+      </span>
     `;
   }
 
@@ -1307,9 +1360,15 @@ function renderFormControl(field, id) {
 function renderFormField(field) {
   const id = `signup-${appState.activeFormTab}-${field.name}`;
   const label = getLocalizedValue(field.label);
+  const modifiers = [
+    field.type === "file" ? "form-field--upload" : "",
+    field.size === "large" ? "form-field--large" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return `
-    <label class="form-field" for="${escapeHtml(id)}">
+    <label class="form-field${modifiers ? ` ${modifiers}` : ""}" for="${escapeHtml(id)}">
       <span class="form-field__label">
         ${field.required ? '<span aria-hidden="true">*</span>' : ""}
         ${escapeHtml(label)}
@@ -1317,6 +1376,25 @@ function renderFormField(field) {
       ${renderFormControl(field, id)}
     </label>
   `;
+}
+
+function renderSignupConsents() {
+  const privacy = document.querySelector("[data-form-consent-privacy]");
+  const updates = document.querySelector("[data-form-consent-updates]");
+
+  if (privacy) {
+    privacy.innerHTML = `
+      <span>${escapeHtml(getCopy("formPrivacyIntro"))}<a href="#signup">${escapeHtml(getCopy("formPrivacyLink"))}</a>${escapeHtml(getCopy("formPrivacyOutro"))}</span>
+      <span>${escapeHtml(getCopy("formPrivacyGdpr"))}</span>
+    `;
+  }
+
+  if (updates) {
+    updates.innerHTML = `
+      <span>${escapeHtml(getCopy("formUpdatesIntro"))}</span>
+      <span>${escapeHtml(getCopy("formUpdatesRevoke"))}</span>
+    `;
+  }
 }
 
 function setSignupMessage(message = "", status = "") {
@@ -1340,11 +1418,24 @@ function renderSignupTabs() {
 
 function renderSignupForm() {
   const formData = getActiveFormData();
+  const panel = document.querySelector("[data-signup-panel]");
   const title = document.querySelector("[data-form-title]");
   const fields = document.querySelector("[data-form-fields]");
+  const illustration = document.querySelector("[data-form-illustration]");
+
+  if (panel) {
+    panel.dataset.signupVariant = formData.variant;
+  }
 
   if (title) {
-    title.textContent = getLocalizedValue(formData.title);
+    title.innerHTML = renderFormTitle(formData);
+  }
+
+  if (illustration) {
+    illustration.setAttribute("src", formData.illustration.src);
+    illustration.setAttribute("width", String(formData.illustration.width));
+    illustration.setAttribute("height", String(formData.illustration.height));
+    illustration.className = `signup-illustration signup-illustration--${formData.variant}`;
   }
 
   if (fields) {
@@ -1352,6 +1443,7 @@ function renderSignupForm() {
   }
 
   renderSignupTabs();
+  renderSignupConsents();
   setSignupMessage();
 }
 

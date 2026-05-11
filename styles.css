@@ -1610,12 +1610,26 @@ p {
 }
 
 .signup-panel {
+  --signup-bg: var(--color-veil);
+  --signup-active: var(--color-cloud);
+
   display: flex;
   flex-direction: column;
-  gap: 55px;
   border-radius: 20px;
-  background: var(--color-veil);
-  padding: 55px;
+  background: var(--signup-bg);
+  overflow: hidden;
+  padding: 0;
+  transition: background 180ms ease;
+}
+
+.signup-panel[data-signup-variant="teachers"] {
+  --signup-bg: var(--color-lemon);
+  --signup-active: var(--color-senape);
+}
+
+.signup-panel[data-signup-variant="info"] {
+  --signup-bg: var(--color-skin);
+  --signup-active: var(--color-lips);
 }
 
 .signup-header {
@@ -1623,10 +1637,12 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
+  padding: 55px;
 }
 
 .signup-kicker {
   flex: 0 0 auto;
+  padding: 17px 20px;
   transform: rotate(-1.29deg);
 }
 
@@ -1677,7 +1693,7 @@ p {
   --signup-tab-dot: var(--color-white);
 
   border-color: transparent;
-  background: var(--color-cloud);
+  background: var(--signup-active);
 }
 
 .signup-tab:not(.is-active):hover {
@@ -1686,17 +1702,21 @@ p {
 
 .signup-body {
   display: grid;
-  grid-template-columns: minmax(260px, 350px) minmax(0, 1fr);
-  gap: clamp(64px, 13vw, 193px);
+  grid-template-columns: minmax(260px, 328px) minmax(0, 1fr);
+  gap: clamp(72px, 13vw, 193px);
   align-items: start;
+  padding: 55px;
 }
 
 .signup-visual {
   display: flex;
-  min-height: 408px;
   flex-direction: column;
   align-items: flex-start;
   gap: 80px;
+}
+
+.signup-panel[data-signup-variant="students"] .signup-visual {
+  min-height: 408px;
 }
 
 .signup-visual h2 {
@@ -1704,30 +1724,50 @@ p {
   font-family: var(--font-display);
   font-size: 38px;
   font-weight: 600;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   line-height: 1.03;
 }
 
-.signup-visual img {
-  width: 288px;
+.signup-title__line {
+  display: block;
+}
+
+.signup-title__accent {
+  color: var(--color-choco);
+}
+
+.signup-illustration {
   height: auto;
-  max-height: 365px;
   object-fit: contain;
+}
+
+.signup-illustration--students {
+  width: 288px;
+  max-height: 365px;
+}
+
+.signup-illustration--teachers {
+  width: 100%;
+}
+
+.signup-illustration--info {
+  width: 184px;
+  align-self: center;
 }
 
 .signup-form {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 40px;
+  align-items: flex-end;
+  gap: 55px;
 }
 
 .signup-fields {
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 30px;
+  gap: 40px;
 }
 
 .form-field {
@@ -1764,10 +1804,52 @@ p {
   padding: 18px;
 }
 
+.form-field select {
+  appearance: none;
+  background-image: url("assets/icon-select-chevron.svg");
+  background-position: right 18px center;
+  background-repeat: no-repeat;
+  background-size: 17px 10px;
+  padding-right: 52px;
+}
+
+.form-field select:required:invalid {
+  color: var(--color-placeholder);
+}
+
+.form-field select option {
+  color: var(--color-black);
+}
+
 .form-field textarea {
   min-height: 138px;
   resize: vertical;
   line-height: 1.35;
+}
+
+.form-field--large textarea {
+  min-height: 225px;
+}
+
+.form-upload {
+  display: flex;
+  min-height: 96px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: var(--button-radius);
+  background: var(--color-white);
+  color: var(--color-placeholder);
+  font-size: 20px;
+  line-height: 1.03;
+  padding: 18px;
+}
+
+.form-field__file-input:focus-visible + .form-upload {
+  outline: 3px solid var(--color-cloud);
+  outline-offset: 4px;
 }
 
 .form-field input::placeholder,
@@ -1786,7 +1868,7 @@ p {
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 18px;
+  gap: 40px;
 }
 
 .consent-row {
@@ -1806,8 +1888,17 @@ p {
   accent-color: var(--color-choco);
 }
 
+.consent-copy {
+  display: block;
+}
+
+.consent-copy > span {
+  display: block;
+}
+
 .signup-submit {
-  min-width: 90px;
+  align-self: flex-end;
+  min-width: 64px;
   min-height: 43px;
 }
 
@@ -2400,8 +2491,12 @@ p {
   }
 
   .signup-panel {
-    gap: 40px;
+    gap: 0;
     border-radius: 16px;
+  }
+
+  .signup-header,
+  .signup-body {
     padding: 32px 24px;
   }
 
@@ -2438,16 +2533,32 @@ p {
   }
 
   .signup-visual h2 {
-    font-size: clamp(32px, 10vw, 44px);
+    font-size: 32px;
   }
 
-  .signup-visual img {
-    width: min(70vw, 250px);
+  .signup-illustration--students {
+    width: min(70%, 250px);
+  }
+
+  .signup-illustration--teachers {
+    width: min(100%, 328px);
+  }
+
+  .signup-illustration--info {
+    width: 160px;
   }
 
   .form-field,
   .signup-fields {
     gap: 20px;
+  }
+
+  .signup-form {
+    gap: 40px;
+  }
+
+  .signup-consents {
+    gap: 24px;
   }
 
   .form-field__label {
@@ -2682,12 +2793,13 @@ p {
   }
 
   .signup-panel {
-    padding: 48px;
+    padding: 0;
   }
 
   .signup-header {
     align-items: flex-start;
     flex-direction: column;
+    padding: 48px;
   }
 
   .signup-tabs {
@@ -2698,6 +2810,7 @@ p {
   .signup-body {
     grid-template-columns: 1fr;
     gap: 56px;
+    padding: 48px;
   }
 
   .signup-visual {

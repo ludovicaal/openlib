@@ -437,7 +437,7 @@
         </section>
 
         <section id="signup" class="signup-section" aria-labelledby="signup-title" data-signup-section>
-          <div class="container signup-panel">
+          <div class="container signup-panel" data-signup-panel data-signup-variant="students">
             <div class="signup-header">
               <p class="section-badge section-badge--choco signup-kicker" data-i18n="formKicker">Form Iscrizioni</p>
               <div class="signup-tabs" role="tablist" aria-label="Tipi di iscrizione" data-i18n-aria-label="formTabsAria">
@@ -455,8 +455,11 @@
 
             <div id="signup-form-panel" class="signup-body" role="tabpanel">
               <div class="signup-visual">
-                <h2 id="signup-title" data-form-title>Prenota un posto e impara con noi!</h2>
-                <img src="assets/illustration-forms.png" width="288" height="365" alt="" loading="lazy">
+                <h2 id="signup-title" data-form-title>
+                  <span class="signup-title__line">Prenota un posto</span>
+                  <span class="signup-title__line">e <span class="signup-title__accent">impara con noi!</span></span>
+                </h2>
+                <img class="signup-illustration signup-illustration--students" src="assets/illustration-forms.png" width="913" height="1157" alt="" loading="lazy" data-form-illustration>
               </div>
 
               <form class="signup-form" novalidate data-signup-form>
@@ -465,11 +468,17 @@
                 <div class="signup-consents">
                   <label class="consent-row">
                     <input type="checkbox" name="privacy" required data-form-privacy>
-                    <span data-i18n="formPrivacyText">Ho letto e accetto la Privacy Policy di OpenLib. Il trattamento dei tuoi dati avviene nel rispetto del GDPR (Reg. UE 2016/679).</span>
+                    <span class="consent-copy" data-form-consent-privacy>
+                      <span>Ho letto e accetto la <a href="#signup">Privacy Policy</a> di OpenLib.</span>
+                      <span>Il trattamento dei tuoi dati avviene nel rispetto del GDPR (Reg. UE 2016/679).</span>
+                    </span>
                   </label>
                   <label class="consent-row">
                     <input type="checkbox" name="updates">
-                    <span data-i18n="formUpdatesText">Acconsento alla ricezione di comunicazioni e aggiornamenti da parte di OpenLib. Puoi revocare il consenso in qualsiasi momento.</span>
+                    <span class="consent-copy" data-form-consent-updates>
+                      <span>Acconsento alla ricezione di comunicazioni e aggiornamenti da parte di OpenLib.</span>
+                      <span>Puoi revocare il consenso in qualsiasi momento.</span>
+                    </span>
                   </label>
                 </div>
 
