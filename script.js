@@ -3,6 +3,7 @@ const appState = {
   menuOpen: false,
   activeLibraryId: "feltrinelli",
   mapStatusKey: "mapStatusDefault",
+  activeMapLibraryIndex: null,
   activeCourseEventId: "wordpress-4",
   activeCommunityIndex: 0,
   activeFormTab: "students",
@@ -72,6 +73,9 @@ const translations = {
     mapRequestText: "Siamo già in tanti quartieri ma vogliamo essere anche nel tuo!",
     mapRequestCta: "Scrivici",
     mapKicker: "Dove trovarci",
+    mapLibraryAria: "Punto biblioteca OpenLib {number}",
+    mapTooltipTitle: "Biblioteca OpenLib",
+    mapTooltipBody: "Punto biblioteca della rete OpenLib. I dettagli saranno disponibili nel prototipo finale.",
     mapPartnerLabel: "Biblioteca partner verificata",
     mapCoursesCta: "Corsi",
     mapDirectionsAria: "Apri mappa",
@@ -194,6 +198,9 @@ const translations = {
     mapRequestText: "We are already in many neighborhoods, but we want to be in yours too!",
     mapRequestCta: "Write to us",
     mapKicker: "Where to find us",
+    mapLibraryAria: "OpenLib library point {number}",
+    mapTooltipTitle: "OpenLib library",
+    mapTooltipBody: "Library point in the OpenLib network. Details will be available in the final prototype.",
     mapPartnerLabel: "Verified library partner",
     mapCoursesCta: "Courses",
     mapDirectionsAria: "Open map",
@@ -831,6 +838,81 @@ function renderMapTitle() {
       : "Find your<br><span>OpenLib</span> point.";
 }
 
+function setMapLibraryLabels() {
+  document.querySelectorAll("[data-map-library]").forEach((library, index) => {
+    library.setAttribute("role", "button");
+    library.setAttribute("tabindex", "0");
+    library.setAttribute("aria-pressed", String(appState.activeMapLibraryIndex === index));
+    library.setAttribute("aria-label", formatCopy("mapLibraryAria", { number: index + 1 }));
+  });
+
+  if (appState.activeMapLibraryIndex !== null) {
+    renderMapTooltipCopy();
+  }
+}
+
+function renderMapTooltipCopy() {
+  const tooltip = document.querySelector("[data-map-tooltip]");
+
+  if (!tooltip || tooltip.hidden) {
+    return;
+  }
+
+  const title = tooltip.querySelector("[data-map-tooltip-title]");
+  const body = tooltip.querySelector("[data-map-tooltip-body]");
+
+  if (title) {
+    title.textContent = getCopy("mapTooltipTitle");
+  }
+
+  if (body) {
+    body.textContent = getCopy("mapTooltipBody");
+  }
+}
+
+function hideMapTooltip() {
+  const tooltip = document.querySelector("[data-map-tooltip]");
+
+  appState.activeMapLibraryIndex = null;
+
+  if (tooltip) {
+    tooltip.hidden = true;
+  }
+
+  document.querySelectorAll("[data-map-library]").forEach((library) => {
+    library.classList.remove("is-active");
+    library.setAttribute("aria-pressed", "false");
+  });
+}
+
+function showMapTooltip(library, clientX, clientY) {
+  const panel = library.closest(".map-panel");
+  const tooltip = panel?.querySelector("[data-map-tooltip]");
+
+  if (!panel || !tooltip) {
+    return;
+  }
+
+  const panelRect = panel.getBoundingClientRect();
+  const libraries = Array.from(document.querySelectorAll("[data-map-library]"));
+  const index = libraries.indexOf(library);
+  const x = Math.min(Math.max(clientX - panelRect.left, 118), panelRect.width - 118);
+  const y = Math.min(Math.max(clientY - panelRect.top, 92), panelRect.height - 24);
+
+  appState.activeMapLibraryIndex = index;
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
+  tooltip.hidden = false;
+
+  libraries.forEach((item, itemIndex) => {
+    const isActive = itemIndex === index;
+    item.classList.toggle("is-active", isActive);
+    item.setAttribute("aria-pressed", String(isActive));
+  });
+
+  renderMapTooltipCopy();
+}
+
 function getActiveLibrary() {
   return libraries.find((library) => library.id === appState.activeLibraryId) || libraries[0];
 }
@@ -1317,6 +1399,7 @@ function applyLanguage() {
   setDocumentLanguage();
   setTextContent();
   renderMapTitle();
+  setMapLibraryLabels();
   setLanguageToggle();
   renderLibraryCard();
   renderCourses();
@@ -1366,11 +1449,49 @@ function bindNavigation() {
 function bindMap() {
   const form = document.querySelector("[data-map-search-form]");
   const input = document.querySelector("[data-map-search-input]");
+  const mapPanel = document.querySelector(".map-panel");
 
   document.querySelectorAll("[data-map-marker]").forEach((marker) => {
     marker.addEventListener("click", () => {
       selectLibrary(marker.dataset.mapMarker, "mapStatusDefault");
     });
+  });
+
+  document.querySelectorAll("[data-map-library]").forEach((library) => {
+    library.addEventListener("click", (event) => {
+      showMapTooltip(library, event.clientX, event.clientY);
+    });
+
+    library.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+
+      event.preventDefault();
+
+      const rect = library.getBoundingClientRect();
+      showMapTooltip(library, rect.left + rect.width / 2, rect.top + rect.height / 2);
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element) || !mapPanel) {
+      return;
+    }
+
+    if (event.target.closest("[data-map-library]") || event.target.closest("[data-map-tooltip]")) {
+      return;
+    }
+
+    if (!mapPanel.contains(event.target)) {
+      hideMapTooltip();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      hideMapTooltip();
+    }
   });
 
   form?.addEventListener("submit", (event) => {
