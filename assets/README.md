@@ -28,5 +28,6 @@ Local assets exported from Figma for the OpenLib prototype live here.
 - `community-elena.png`: Figma node `1687:1456`, community story avatar.
 - `community-marco.png`: Figma node `1687:1469`, community story avatar.
 - `community-tommaso.png`: Figma node `1687:1482`, community story avatar.
+- `illustration-forms.png`: Figma node `1742:8152`, signup forms illustration.
 
 Do not reference `localhost:3845` asset URLs in the final prototype. Download assets into this folder and reference them with relative paths.

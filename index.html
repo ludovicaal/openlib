@@ -374,6 +374,50 @@
             </div>
           </div>
         </section>
+
+        <section id="signup" class="signup-section" aria-labelledby="signup-title" data-signup-section>
+          <div class="container signup-panel">
+            <div class="signup-header">
+              <p class="section-badge section-badge--choco signup-kicker" data-i18n="formKicker">Form Iscrizioni</p>
+              <div class="signup-tabs" role="tablist" aria-label="Tipi di iscrizione" data-i18n-aria-label="formTabsAria">
+                <button class="signup-tab signup-tab--students is-active" type="button" role="tab" aria-selected="true" aria-controls="signup-form-panel" data-form-tab="students">
+                  <span data-i18n="formTabStudents">Studenti</span>
+                </button>
+                <button class="signup-tab signup-tab--teachers" type="button" role="tab" aria-selected="false" aria-controls="signup-form-panel" data-form-tab="teachers">
+                  <span data-i18n="formTabTeachers">Insegnanti</span>
+                </button>
+                <button class="signup-tab signup-tab--info" type="button" role="tab" aria-selected="false" aria-controls="signup-form-panel" data-form-tab="info">
+                  <span data-i18n="formTabInfo">Info</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="signup-form-panel" class="signup-body" role="tabpanel">
+              <div class="signup-visual">
+                <h2 id="signup-title" data-form-title>Prenota un posto e impara con noi!</h2>
+                <img src="assets/illustration-forms.png" width="288" height="365" alt="" loading="lazy">
+              </div>
+
+              <form class="signup-form" novalidate data-signup-form>
+                <div class="signup-fields" data-form-fields></div>
+
+                <div class="signup-consents">
+                  <label class="consent-row">
+                    <input type="checkbox" name="privacy" required data-form-privacy>
+                    <span data-i18n="formPrivacyText">Ho letto e accetto la Privacy Policy di OpenLib. Il trattamento dei tuoi dati avviene nel rispetto del GDPR (Reg. UE 2016/679).</span>
+                  </label>
+                  <label class="consent-row">
+                    <input type="checkbox" name="updates">
+                    <span data-i18n="formUpdatesText">Acconsento alla ricezione di comunicazioni e aggiornamenti da parte di OpenLib. Puoi revocare il consenso in qualsiasi momento.</span>
+                  </label>
+                </div>
+
+                <button class="button button--primary signup-submit" type="submit" data-i18n="formSubmit">Invia</button>
+                <p class="signup-message" aria-live="polite" data-form-message></p>
+              </form>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   </body>

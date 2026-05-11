@@ -5,6 +5,7 @@ const appState = {
   mapStatusKey: "mapStatusDefault",
   activeCourseEventId: "wordpress-4",
   activeCommunityIndex: 0,
+  activeFormTab: "students",
 };
 
 const translations = {
@@ -108,6 +109,18 @@ const translations = {
     communityPrevAria: "Storia precedente",
     communityNextAria: "Storia successiva",
     communityStoryAria: "Storia {position} di {total}: {name}",
+    formKicker: "Form Iscrizioni",
+    formTabsAria: "Tipi di iscrizione",
+    formTabStudents: "Studenti",
+    formTabTeachers: "Insegnanti",
+    formTabInfo: "Info",
+    formPrivacyText:
+      "Ho letto e accetto la Privacy Policy di OpenLib. Il trattamento dei tuoi dati avviene nel rispetto del GDPR (Reg. UE 2016/679).",
+    formUpdatesText:
+      "Acconsento alla ricezione di comunicazioni e aggiornamenti da parte di OpenLib. Puoi revocare il consenso in qualsiasi momento.",
+    formSubmit: "Invia",
+    formErrorRequired: "Compila i campi obbligatori e accetta la Privacy Policy per continuare.",
+    formSuccessMessage: "Richiesta ricevuta per {role}. Ti scriveremo con i prossimi passi.",
   },
   en: {
     documentTitle: "OpenLib | A distributed campus in your library",
@@ -207,6 +220,17 @@ const translations = {
     communityPrevAria: "Previous story",
     communityNextAria: "Next story",
     communityStoryAria: "Story {position} of {total}: {name}",
+    formKicker: "Signup forms",
+    formTabsAria: "Signup types",
+    formTabStudents: "Students",
+    formTabTeachers: "Teachers",
+    formTabInfo: "Info",
+    formPrivacyText:
+      "I have read and accept OpenLib's Privacy Policy. Your data is processed in compliance with GDPR (EU Reg. 2016/679).",
+    formUpdatesText: "I agree to receive communications and updates from OpenLib. You can withdraw consent at any time.",
+    formSubmit: "Send",
+    formErrorRequired: "Complete the required fields and accept the Privacy Policy to continue.",
+    formSuccessMessage: "Request received for {role}. We will write to you with the next steps.",
   },
 };
 
@@ -520,6 +544,148 @@ const communityStories = [
   },
 ];
 
+const formTabData = {
+  students: {
+    labelKey: "formTabStudents",
+    title: {
+      it: "Prenota un posto e impara con noi!",
+      en: "Reserve a seat and learn with us!",
+    },
+    fields: [
+      {
+        name: "city",
+        type: "select",
+        required: true,
+        label: { it: "Città", en: "City" },
+        placeholder: { it: "Seleziona la città", en: "Select your city" },
+        options: ["Milano"],
+      },
+      {
+        name: "library",
+        type: "select",
+        required: true,
+        label: { it: "Biblioteca", en: "Library" },
+        placeholder: { it: "Seleziona la biblioteca", en: "Select the library" },
+        options: ["Giangiacomo Feltrinelli", "Biblioteca Venezia", "Palazzo Sormani"],
+      },
+      {
+        name: "course",
+        type: "select",
+        required: true,
+        label: { it: "Corso", en: "Course" },
+        placeholder: { it: "Seleziona il corso", en: "Select the course" },
+        options: ["WordPress", { it: "Inglese", en: "English" }, { it: "Pittura", en: "Painting" }, { it: "Storia di Milano", en: "History of Milan" }, { it: "Comunicazione empatica", en: "Empathetic communication" }],
+      },
+      {
+        name: "email",
+        type: "email",
+        required: true,
+        autocomplete: "email",
+        label: { it: "Email", en: "Email" },
+        placeholder: { it: "Inserisci la tua email", en: "Enter your email" },
+      },
+    ],
+  },
+  teachers: {
+    labelKey: "formTabTeachers",
+    title: {
+      it: "Proponi una skill e insegna in biblioteca.",
+      en: "Offer a skill and teach in the library.",
+    },
+    fields: [
+      {
+        name: "city",
+        type: "select",
+        required: true,
+        label: { it: "Città", en: "City" },
+        placeholder: { it: "Seleziona la città", en: "Select your city" },
+        options: ["Milano"],
+      },
+      {
+        name: "skill",
+        type: "text",
+        required: true,
+        label: { it: "Skill da condividere", en: "Skill to share" },
+        placeholder: { it: "Es. fotografia, coding, scrittura", en: "E.g. photography, coding, writing" },
+      },
+      {
+        name: "place",
+        type: "select",
+        required: true,
+        label: { it: "Spazio preferito", en: "Preferred space" },
+        placeholder: { it: "Scegli una biblioteca", en: "Choose a library" },
+        options: ["Giangiacomo Feltrinelli", "Biblioteca Venezia", "Palazzo Sormani", "Pinacoteca Ambrosiana"],
+      },
+      {
+        name: "availability",
+        type: "select",
+        required: true,
+        label: { it: "Disponibilità", en: "Availability" },
+        placeholder: { it: "Quando puoi insegnare?", en: "When can you teach?" },
+        options: [
+          { it: "Mattina", en: "Morning" },
+          { it: "Pomeriggio", en: "Afternoon" },
+          { it: "Sera", en: "Evening" },
+          { it: "Weekend", en: "Weekend" },
+        ],
+      },
+      {
+        name: "email",
+        type: "email",
+        required: true,
+        autocomplete: "email",
+        label: { it: "Email", en: "Email" },
+        placeholder: { it: "Inserisci la tua email", en: "Enter your email" },
+      },
+    ],
+  },
+  info: {
+    labelKey: "formTabInfo",
+    title: {
+      it: "Hai una domanda? Scrivici qui.",
+      en: "Have a question? Write to us here.",
+    },
+    fields: [
+      {
+        name: "name",
+        type: "text",
+        required: true,
+        autocomplete: "name",
+        label: { it: "Nome", en: "Name" },
+        placeholder: { it: "Come ti chiami?", en: "What is your name?" },
+      },
+      {
+        name: "topic",
+        type: "select",
+        required: true,
+        label: { it: "Tema", en: "Topic" },
+        placeholder: { it: "Seleziona il tema", en: "Select the topic" },
+        options: [
+          { it: "Aprire un punto OpenLib", en: "Open an OpenLib point" },
+          { it: "Partnership biblioteca", en: "Library partnership" },
+          { it: "Stampa e progetto", en: "Press and project" },
+          { it: "Altro", en: "Other" },
+        ],
+      },
+      {
+        name: "message",
+        type: "textarea",
+        required: true,
+        label: { it: "Messaggio", en: "Message" },
+        placeholder: { it: "Raccontaci di cosa hai bisogno", en: "Tell us what you need" },
+      },
+      {
+        name: "email",
+        type: "email",
+        required: true,
+        autocomplete: "email",
+        label: { it: "Email", en: "Email" },
+        placeholder: { it: "Inserisci la tua email", en: "Enter your email" },
+      },
+    ],
+  },
+};
+
 function getCopy(key) {
   return translations[appState.language][key] || translations.it[key] || "";
 }
@@ -831,6 +997,144 @@ function selectCommunityStory(index) {
   updateCommunityCarousel();
 }
 
+function getActiveFormData() {
+  return formTabData[appState.activeFormTab] || formTabData.students;
+}
+
+function renderFormControl(field, id) {
+  const placeholder = getLocalizedValue(field.placeholder);
+  const required = field.required ? " required aria-required=\"true\"" : "";
+
+  if (field.type === "select") {
+    const options = field.options
+      .map((option) => {
+        const label = getLocalizedValue(option);
+        return `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`;
+      })
+      .join("");
+
+    return `
+      <select id="${escapeHtml(id)}" name="${escapeHtml(field.name)}"${required}>
+        <option value="">${escapeHtml(placeholder)}</option>
+        ${options}
+      </select>
+    `;
+  }
+
+  if (field.type === "textarea") {
+    return `
+      <textarea
+        id="${escapeHtml(id)}"
+        name="${escapeHtml(field.name)}"
+        rows="4"
+        placeholder="${escapeHtml(placeholder)}"
+        ${field.required ? "required aria-required=\"true\"" : ""}
+      ></textarea>
+    `;
+  }
+
+  return `
+    <input
+      id="${escapeHtml(id)}"
+      type="${escapeHtml(field.type)}"
+      name="${escapeHtml(field.name)}"
+      placeholder="${escapeHtml(placeholder)}"
+      autocomplete="${escapeHtml(field.autocomplete || "off")}"${required}
+    >
+  `;
+}
+
+function renderFormField(field) {
+  const id = `signup-${appState.activeFormTab}-${field.name}`;
+  const label = getLocalizedValue(field.label);
+
+  return `
+    <label class="form-field" for="${escapeHtml(id)}">
+      <span class="form-field__label">
+        ${field.required ? '<span aria-hidden="true">*</span>' : ""}
+        ${escapeHtml(label)}
+      </span>
+      ${renderFormControl(field, id)}
+    </label>
+  `;
+}
+
+function setSignupMessage(message = "", status = "") {
+  const messageNode = document.querySelector("[data-form-message]");
+
+  if (!messageNode) {
+    return;
+  }
+
+  messageNode.textContent = message;
+  messageNode.dataset.status = status;
+}
+
+function renderSignupTabs() {
+  document.querySelectorAll("[data-form-tab]").forEach((tab) => {
+    const isActive = tab.dataset.formTab === appState.activeFormTab;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+}
+
+function renderSignupForm() {
+  const formData = getActiveFormData();
+  const title = document.querySelector("[data-form-title]");
+  const fields = document.querySelector("[data-form-fields]");
+
+  if (title) {
+    title.textContent = getLocalizedValue(formData.title);
+  }
+
+  if (fields) {
+    fields.innerHTML = formData.fields.map(renderFormField).join("");
+  }
+
+  renderSignupTabs();
+  setSignupMessage();
+}
+
+function clearControlInvalidState(control) {
+  control.removeAttribute("aria-invalid");
+  control.closest(".form-field, .consent-row")?.classList.remove("is-invalid");
+}
+
+function validateSignupForm() {
+  const form = document.querySelector("[data-signup-form]");
+
+  if (!form) {
+    return;
+  }
+
+  const requiredControls = form.querySelectorAll("input[required], select[required], textarea[required]");
+  let firstInvalidControl = null;
+
+  requiredControls.forEach((control) => {
+    const isCheckbox = control.type === "checkbox";
+    const isInvalid = isCheckbox ? !control.checked : !control.value.trim() || !control.validity.valid;
+
+    control.setAttribute("aria-invalid", String(isInvalid));
+    control.closest(".form-field, .consent-row")?.classList.toggle("is-invalid", isInvalid);
+
+    if (isInvalid && !firstInvalidControl) {
+      firstInvalidControl = control;
+    }
+  });
+
+  if (firstInvalidControl) {
+    setSignupMessage(getCopy("formErrorRequired"), "error");
+    firstInvalidControl.focus();
+    return;
+  }
+
+  const formData = getActiveFormData();
+  const role = getCopy(formData.labelKey);
+
+  setSignupMessage(formatCopy("formSuccessMessage", { role }), "success");
+  form.reset();
+}
+
 function setDocumentLanguage() {
   document.documentElement.lang = appState.language;
   document.title = getCopy("documentTitle");
@@ -864,6 +1168,7 @@ function applyLanguage() {
   renderLibraryCard();
   renderCourses();
   renderCommunityCarousel();
+  renderSignupForm();
 }
 
 function toggleLanguage() {
@@ -980,6 +1285,44 @@ function bindCommunityCarousel() {
   });
 }
 
+function bindSignupForm() {
+  const form = document.querySelector("[data-signup-form]");
+
+  document.querySelectorAll("[data-form-tab]").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      if (!formTabData[tab.dataset.formTab]) {
+        return;
+      }
+
+      appState.activeFormTab = tab.dataset.formTab;
+      renderSignupForm();
+    });
+  });
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    validateSignupForm();
+  });
+
+  form?.addEventListener("input", (event) => {
+    if (!(event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement)) {
+      return;
+    }
+
+    clearControlInvalidState(event.target);
+    setSignupMessage();
+  });
+
+  form?.addEventListener("change", (event) => {
+    if (!(event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement)) {
+      return;
+    }
+
+    clearControlInvalidState(event.target);
+    setSignupMessage();
+  });
+}
+
 function markAppReady() {
   document.body.classList.add("is-ready");
 }
@@ -989,6 +1332,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindMap();
   bindCourses();
   bindCommunityCarousel();
+  bindSignupForm();
   applyLanguage();
   markAppReady();
 });
