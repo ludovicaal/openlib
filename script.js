@@ -1,6 +1,8 @@
 const appState = {
   language: "it",
   menuOpen: false,
+  activeLibraryId: "feltrinelli",
+  mapStatusKey: "mapStatusDefault",
 };
 
 const translations = {
@@ -57,6 +59,22 @@ const translations = {
     valueFreeTitle: "Gratuito.",
     valueFreeBody:
       "Siamo convinti che il sapere non abbia prezzo. Chiunque merita di imparare qualcosa di nuovo ogni giorno.",
+    mapMarkersAria: "Biblioteche OpenLib sulla mappa",
+    mapTitle: "Trova il tuo punto OpenLib.",
+    mapSubtitle: "Cerca la tua biblioteca sulla mappa e unisciti alla nostra community!",
+    mapSearchLabel: "Città o Codice Postale",
+    mapSearchPlaceholder: "Città o Codice Postale",
+    mapSearchButtonAria: "Cerca biblioteca",
+    mapRequestText: "Siamo già in tanti quartieri ma vogliamo essere anche nel tuo!",
+    mapRequestCta: "Scrivici",
+    mapKicker: "Dove trovarci",
+    mapPartnerLabel: "Biblioteca partner verificata",
+    mapCoursesCta: "Corsi",
+    mapDirectionsAria: "Apri mappa",
+    mapStatusDefault: "Punto OpenLib selezionato: {city}.",
+    mapStatusFound: "Abbiamo trovato il punto OpenLib più vicino: {city}.",
+    mapStatusFallback:
+      "Non abbiamo ancora un punto esatto lì: ti mostriamo {city} e puoi scriverci per proporre il tuo quartiere.",
   },
   en: {
     documentTitle: "OpenLib | A distributed campus in your library",
@@ -111,6 +129,22 @@ const translations = {
     valueFreeTitle: "Free.",
     valueFreeBody:
       "We believe knowledge should not have a price. Everyone deserves to learn something new every day.",
+    mapMarkersAria: "OpenLib libraries on the map",
+    mapTitle: "Find your OpenLib point.",
+    mapSubtitle: "Search for your library on the map and join our community!",
+    mapSearchLabel: "City or postal code",
+    mapSearchPlaceholder: "City or postal code",
+    mapSearchButtonAria: "Search library",
+    mapRequestText: "We are already in many neighborhoods, but we want to be in yours too!",
+    mapRequestCta: "Write to us",
+    mapKicker: "Where to find us",
+    mapPartnerLabel: "Verified library partner",
+    mapCoursesCta: "Courses",
+    mapDirectionsAria: "Open map",
+    mapStatusDefault: "Selected OpenLib point: {city}.",
+    mapStatusFound: "We found the closest OpenLib point: {city}.",
+    mapStatusFallback:
+      "We do not have an exact point there yet: we are showing {city}, and you can write to propose your neighborhood.",
   },
 };
 
@@ -119,8 +153,54 @@ const languageFlag = {
   en: "assets/flag-en.png",
 };
 
+const libraries = [
+  {
+    id: "feltrinelli",
+    name: "Giangiacomo Feltrinelli",
+    address: "Viale Pasubio, 5, 20154",
+    city: "Milano (MI)",
+    phone: "02 495 8341",
+    photo: "assets/library-feltrinelli.png",
+    searchTerms: ["milano", "20154", "feltrinelli", "pasubio"],
+    hours: {
+      it: "Lun - Ven · 09:30 - 11:30 / 14:00 - 17:30",
+      en: "Mon - Fri · 09:30 - 11:30 / 14:00 - 17:30",
+    },
+  },
+  {
+    id: "sormani",
+    name: "Palazzo Sormani",
+    address: "Corso di Porta Vittoria, 6",
+    city: "Milano (MI)",
+    phone: "02 8846 3326",
+    photo: "assets/library-feltrinelli.png",
+    searchTerms: ["milano", "sormani", "porta vittoria", "20122"],
+    hours: {
+      it: "Lun - Sab · 10:00 - 18:00",
+      en: "Mon - Sat · 10:00 - 18:00",
+    },
+  },
+  {
+    id: "venezia",
+    name: "Biblioteca Venezia",
+    address: "Via Frisi, 2/4",
+    city: "Milano (MI)",
+    phone: "02 8846 5799",
+    photo: "assets/library-feltrinelli.png",
+    searchTerms: ["milano", "venezia", "porta venezia", "20129"],
+    hours: {
+      it: "Mar - Sab · 09:30 - 18:00",
+      en: "Tue - Sat · 09:30 - 18:00",
+    },
+  },
+];
+
 function getCopy(key) {
   return translations[appState.language][key] || translations.it[key] || "";
+}
+
+function formatCopy(key, replacements = {}) {
+  return getCopy(key).replace(/\{(\w+)\}/g, (_, name) => replacements[name] || "");
 }
 
 function setTextContent() {
@@ -131,6 +211,62 @@ function setTextContent() {
   document.querySelectorAll("[data-i18n-aria-label]").forEach((node) => {
     node.setAttribute("aria-label", getCopy(node.dataset.i18nAriaLabel));
   });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+    node.setAttribute("placeholder", getCopy(node.dataset.i18nPlaceholder));
+  });
+}
+
+function getActiveLibrary() {
+  return libraries.find((library) => library.id === appState.activeLibraryId) || libraries[0];
+}
+
+function renderLibraryCard() {
+  const library = getActiveLibrary();
+  const fields = document.querySelectorAll("[data-map-field]");
+  const status = document.querySelector("[data-map-status]");
+  const photo = document.querySelector("[data-map-photo]");
+
+  fields.forEach((field) => {
+    const fieldName = field.dataset.mapField;
+    const value = fieldName === "hours" ? library.hours[appState.language] : library[fieldName];
+
+    if (value) {
+      field.textContent = value;
+    }
+  });
+
+  if (photo) {
+    photo.setAttribute("src", library.photo);
+  }
+
+  if (status) {
+    status.textContent = formatCopy(appState.mapStatusKey, { city: library.city });
+  }
+
+  document.querySelectorAll("[data-map-marker]").forEach((marker) => {
+    const isActive = marker.dataset.mapMarker === library.id;
+    marker.classList.toggle("is-active", isActive);
+    marker.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
+function selectLibrary(libraryId, statusKey = "mapStatusDefault") {
+  appState.activeLibraryId = libraryId;
+  appState.mapStatusKey = statusKey;
+  renderLibraryCard();
+}
+
+function findLibrary(query) {
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return null;
+  }
+
+  return libraries.find((library) =>
+    library.searchTerms.some((term) => term.includes(normalizedQuery) || normalizedQuery.includes(term)),
+  );
 }
 
 function setDocumentLanguage() {
@@ -163,6 +299,7 @@ function applyLanguage() {
   setDocumentLanguage();
   setTextContent();
   setLanguageToggle();
+  renderLibraryCard();
 }
 
 function toggleLanguage() {
@@ -203,12 +340,37 @@ function bindNavigation() {
   });
 }
 
+function bindMap() {
+  const form = document.querySelector("[data-map-search-form]");
+  const input = document.querySelector("[data-map-search-input]");
+
+  document.querySelectorAll("[data-map-marker]").forEach((marker) => {
+    marker.addEventListener("click", () => {
+      selectLibrary(marker.dataset.mapMarker, "mapStatusDefault");
+    });
+  });
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const library = findLibrary(input?.value || "");
+
+    if (library) {
+      selectLibrary(library.id, "mapStatusFound");
+      return;
+    }
+
+    selectLibrary("feltrinelli", input?.value ? "mapStatusFallback" : "mapStatusDefault");
+  });
+}
+
 function markAppReady() {
   document.body.classList.add("is-ready");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   bindNavigation();
+  bindMap();
   applyLanguage();
   markAppReady();
 });

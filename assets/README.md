@@ -17,5 +17,8 @@ Local assets exported from Figma for the OpenLib prototype live here.
 - `value-human.svg`: Figma node `1687:932`, value card icon.
 - `value-peer.svg`: Figma node `1687:939`, value card icon.
 - `value-free.svg`: Figma node `1687:947`, value card icon.
+- `map-lombardia.svg`: Figma node `1777:9210`, map region asset.
+- `map-library-cluster.svg`: Figma node `1791:11898`, map library cluster asset.
+- `library-feltrinelli.png`: Figma node `1777:9352`, sample library image.
 
 Do not reference `localhost:3845` asset URLs in the final prototype. Download assets into this folder and reference them with relative paths.

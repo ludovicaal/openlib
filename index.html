@@ -200,6 +200,80 @@
             </div>
           </div>
         </section>
+
+        <section id="locations" class="map-section" aria-labelledby="map-title">
+          <div class="container map-panel">
+            <div class="map-art" aria-hidden="true">
+              <span class="map-region-label map-region-label--piemonte">Piemonte</span>
+              <span class="map-region-label map-region-label--valle">Valle d'Aosta</span>
+              <span class="map-region-label map-region-label--trentino">Trentino-Alto Adige</span>
+              <span class="map-region-label map-region-label--emilia">Emilia-Romagna</span>
+              <span class="map-region-label map-region-label--lombardia">Lombardia</span>
+              <img class="map-lombardia" src="assets/map-lombardia.svg" alt="">
+              <img class="map-library-cluster" src="assets/map-library-cluster.svg" alt="">
+            </div>
+
+            <div class="map-marker-layer" aria-label="Biblioteche OpenLib sulla mappa" data-i18n-aria-label="mapMarkersAria">
+              <button class="map-marker map-marker--feltrinelli is-active" type="button" data-map-marker="feltrinelli" aria-label="Giangiacomo Feltrinelli"></button>
+              <button class="map-marker map-marker--sormani" type="button" data-map-marker="sormani" aria-label="Palazzo Sormani"></button>
+              <button class="map-marker map-marker--venezia" type="button" data-map-marker="venezia" aria-label="Biblioteca Venezia"></button>
+            </div>
+
+            <div class="map-content">
+              <article class="map-search-card">
+                <div>
+                  <h2 id="map-title" class="map-title" data-i18n="mapTitle">Trova il tuo punto OpenLib.</h2>
+                  <p data-i18n="mapSubtitle">
+                    Cerca la tua biblioteca sulla mappa e unisciti alla nostra community!
+                  </p>
+                </div>
+
+                <form class="map-search" data-map-search-form>
+                  <label class="sr-only" for="library-search" data-i18n="mapSearchLabel">Città o Codice Postale</label>
+                  <input
+                    id="library-search"
+                    type="search"
+                    name="library-search"
+                    placeholder="Città o Codice Postale"
+                    autocomplete="postal-code"
+                    data-map-search-input
+                    data-i18n-placeholder="mapSearchPlaceholder"
+                  >
+                  <button type="submit" aria-label="Cerca biblioteca" data-i18n-aria-label="mapSearchButtonAria">→</button>
+                </form>
+
+                <div class="map-request-card">
+                  <p data-i18n="mapRequestText">Siamo già in tanti quartieri ma vogliamo essere anche nel tuo!</p>
+                  <a class="button button--primary map-request-button" href="#signup">
+                    <span data-i18n="mapRequestCta">Scrivici</span>
+                    <span aria-hidden="true">✉</span>
+                  </a>
+                </div>
+              </article>
+
+              <p class="section-badge section-badge--white map-kicker" data-i18n="mapKicker">Dove trovarci</p>
+
+              <article class="library-card" aria-live="polite">
+                <img class="library-card__photo" src="assets/library-feltrinelli.png" alt="" data-map-photo>
+                <div class="library-card__content">
+                  <p class="library-card__eyebrow" data-i18n="mapPartnerLabel">Biblioteca partner verificata</p>
+                  <h3 data-map-field="name">Giangiacomo Feltrinelli</h3>
+                  <address>
+                    <span data-map-field="address">Viale Pasubio, 5, 20154</span>
+                    <span data-map-field="city">Milano (MI)</span>
+                  </address>
+                  <p class="library-card__hours" data-map-field="hours">Lun - Ven · 09:30 - 11:30 / 14:00 - 17:30</p>
+                  <a class="library-card__phone" href="tel:+39024958341" data-map-field="phone">02 495 8341</a>
+                  <p class="map-status" data-map-status>Punto OpenLib selezionato: Milano (MI).</p>
+                </div>
+                <div class="library-card__actions">
+                  <a class="button button--primary" href="#courses" data-i18n="mapCoursesCta">Corsi</a>
+                  <a class="icon-button library-card__directions" href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer" aria-label="Apri mappa" data-i18n-aria-label="mapDirectionsAria">↗</a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   </body>
