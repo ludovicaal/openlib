@@ -3,6 +3,7 @@ const appState = {
   menuOpen: false,
   activeLibraryId: "feltrinelli",
   mapStatusKey: "mapStatusDefault",
+  activeCourseEventId: "wordpress-4",
 };
 
 const translations = {
@@ -75,6 +76,24 @@ const translations = {
     mapStatusFound: "Abbiamo trovato il punto OpenLib più vicino: {city}.",
     mapStatusFallback:
       "Non abbiamo ancora un punto esatto lì: ti mostriamo {city} e puoi scriverci per proporre il tuo quartiere.",
+    coursesKicker: "I nostri corsi",
+    coursesTitle: "La tua città come aula.",
+    coursesBodyOne:
+      "Ogni mese portiamo corsi pratici e gratuiti nelle biblioteche, pinacoteche e palazzi storici di Milano.",
+    coursesBodyTwo:
+      "Spazi culturali che tornano a vivere grazie a chi ha una competenza da condividere e a chi ha voglia di imparare.",
+    coursesBodyThree:
+      "Offriamo una conoscenza autentica che nasce dall'incontro tra persone reali, in luoghi che ispirano.",
+    coursesPreviewAria: "Programma corsi",
+    coursesPreviewText: "Iscriviti e ricevi direttamente in anteprima il nostro programma.",
+    coursesMonth: "Maggio",
+    coursesCalendarAria: "Calendario corsi maggio 2026",
+    coursesListTitle: "Corsi",
+    coursesListStatus: "On going",
+    courseLibraryLabel: "Biblioteca:",
+    courseSignupCta: "Iscriviti",
+    courseDateLabel: "{day} maggio",
+    courseCalendarEventAria: "{title}, {day} maggio, {time}, {library}",
   },
   en: {
     documentTitle: "OpenLib | A distributed campus in your library",
@@ -145,6 +164,22 @@ const translations = {
     mapStatusFound: "We found the closest OpenLib point: {city}.",
     mapStatusFallback:
       "We do not have an exact point there yet: we are showing {city}, and you can write to propose your neighborhood.",
+    coursesKicker: "Our courses",
+    coursesTitle: "Your city as a classroom.",
+    coursesBodyOne: "Every month we bring practical, free courses into Milan's libraries, galleries and historic buildings.",
+    coursesBodyTwo:
+      "Cultural spaces come back to life thanks to people with a skill to share and people who want to learn.",
+    coursesBodyThree: "We offer authentic knowledge born from real human encounters, in places that inspire.",
+    coursesPreviewAria: "Course programme",
+    coursesPreviewText: "Sign up and receive our programme preview directly.",
+    coursesMonth: "May",
+    coursesCalendarAria: "May 2026 course calendar",
+    coursesListTitle: "Courses",
+    coursesListStatus: "Ongoing",
+    courseLibraryLabel: "Library:",
+    courseSignupCta: "Join now",
+    courseDateLabel: "May {day}",
+    courseCalendarEventAria: "{title}, May {day}, {time}, {library}",
   },
 };
 
@@ -195,12 +230,204 @@ const libraries = [
   },
 ];
 
+const calendarWeekdays = {
+  it: ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"],
+  en: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+};
+
+const courseCatalog = [
+  {
+    id: "wordpress",
+    theme: "dolphin",
+    title: {
+      it: "WordPress",
+      en: "WordPress",
+    },
+    teacher: "Jonathan Quintini",
+    description: {
+      it: "Impara a creare e gestire il tuo sito in autonomia, dall'installazione alla personalizzazione delle pagine.",
+      en: "Learn how to create and manage your own website, from installation to page customization.",
+    },
+  },
+  {
+    id: "english",
+    theme: "lips",
+    title: {
+      it: "Inglese",
+      en: "English",
+    },
+    teacher: "David Beckam",
+    description: {
+      it: "Corso di lingua inglese per imparare attraverso conversazioni reali, esercizi pratici e piccoli suggerimenti quotidiani.",
+      en: "An English course built around real conversations, practical exercises and small everyday tips.",
+    },
+  },
+  {
+    id: "painting",
+    theme: "chick",
+    title: {
+      it: "Pittura",
+      en: "Painting",
+    },
+    teacher: "Ludovica Laneve",
+    description: {
+      it: "Insieme esploreremo colori e pennellate per liberare la tua creatività e dipingere il tuo primo quadro.",
+      en: "Explore colors and brushstrokes, free your creativity and paint your first canvas together.",
+    },
+  },
+  {
+    id: "history",
+    theme: "skin",
+    title: {
+      it: "Storia di Milano",
+      en: "History of Milan",
+    },
+    teacher: "Beppe Sala",
+    description: {
+      it: "Scopri la storia di Milano insieme a un professore appassionato: un viaggio accogliente dalle radici romane alla metropoli moderna.",
+      en: "Discover Milan's history with a passionate teacher, from its Roman roots to today's vibrant city.",
+    },
+  },
+  {
+    id: "communication",
+    theme: "veil",
+    title: {
+      it: "Comunicazione empatica",
+      en: "Empathetic communication",
+    },
+    teacher: "Maria Antonietta",
+    description: {
+      it: "Impara l'arte della comunicazione empatica: un percorso dolce per valorizzare il tuo talento e costruire relazioni serene nel lavoro.",
+      en: "Learn empathetic communication through a gentle path that strengthens your talent and workplace relationships.",
+    },
+  },
+];
+
+const courseEvents = [
+  {
+    id: "wordpress-4",
+    courseId: "wordpress",
+    day: 4,
+    time: "10:00 - 12:00",
+    library: "Giangiacomo Feltrinelli",
+    libraryShort: "G. Feltrinelli",
+  },
+  {
+    id: "english-5",
+    courseId: "english",
+    day: 5,
+    time: "09:30 - 11:00",
+    library: {
+      it: "Biblioteca Venezia",
+      en: "Venezia Library",
+    },
+    libraryShort: "Venezia",
+  },
+  {
+    id: "history-7",
+    courseId: "history",
+    day: 7,
+    time: "14:00 - 16:00",
+    library: "Biblioteca Parco Sempione",
+    libraryShort: "Parco Sempione",
+  },
+  {
+    id: "painting-11",
+    courseId: "painting",
+    day: 11,
+    time: "09:00 - 12:00",
+    library: "Pinacoteca Ambrosiana",
+    libraryShort: "P. Ambrosiana",
+  },
+  {
+    id: "wordpress-13",
+    courseId: "wordpress",
+    day: 13,
+    time: "10:00 - 12:00",
+    library: "Giangiacomo Feltrinelli",
+    libraryShort: "G. Feltrinelli",
+  },
+  {
+    id: "communication-15",
+    courseId: "communication",
+    day: 15,
+    time: "15:00 - 17:30",
+    library: "Palazzo Sormani",
+    libraryShort: "Palazzo Sormani",
+  },
+  {
+    id: "communication-18",
+    courseId: "communication",
+    day: 18,
+    time: "15:00 - 17:30",
+    library: "Palazzo Sormani",
+    libraryShort: "Palazzo Sormani",
+  },
+  {
+    id: "wordpress-19",
+    courseId: "wordpress",
+    day: 19,
+    time: "10:00 - 12:00",
+    library: "Giangiacomo Feltrinelli",
+    libraryShort: "G. Feltrinelli",
+  },
+  {
+    id: "english-21",
+    courseId: "english",
+    day: 21,
+    time: "09:30 - 11:00",
+    library: {
+      it: "Biblioteca Venezia",
+      en: "Venezia Library",
+    },
+    libraryShort: "Venezia",
+  },
+  {
+    id: "painting-26",
+    courseId: "painting",
+    day: 26,
+    time: "09:00 - 12:00",
+    library: "Pinacoteca Ambrosiana",
+    libraryShort: "P. Ambrosiana",
+  },
+  {
+    id: "history-29",
+    courseId: "history",
+    day: 29,
+    time: "14:00 - 16:00",
+    library: "Biblioteca Parco Sempione",
+    libraryShort: "Parco Sempione",
+  },
+];
+
 function getCopy(key) {
   return translations[appState.language][key] || translations.it[key] || "";
 }
 
 function formatCopy(key, replacements = {}) {
   return getCopy(key).replace(/\{(\w+)\}/g, (_, name) => replacements[name] || "");
+}
+
+function getLocalizedValue(value) {
+  if (typeof value === "string") {
+    return value;
+  }
+
+  return value?.[appState.language] || value?.it || "";
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => {
+    const replacements = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+
+    return replacements[character];
+  });
 }
 
 function setTextContent() {
@@ -269,6 +496,149 @@ function findLibrary(query) {
   );
 }
 
+function getCourse(courseId) {
+  return courseCatalog.find((course) => course.id === courseId) || courseCatalog[0];
+}
+
+function getCourseEvent(eventId) {
+  return courseEvents.find((courseEvent) => courseEvent.id === eventId) || courseEvents[0];
+}
+
+function getCourseSummaryEvent(courseId) {
+  return courseEvents.find((courseEvent) => courseEvent.courseId === courseId) || courseEvents[0];
+}
+
+function formatCourseDate(day) {
+  return formatCopy("courseDateLabel", { day });
+}
+
+function renderCourseWeekdays() {
+  const container = document.querySelector("[data-course-weekdays]");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = calendarWeekdays[appState.language]
+    .map((day) => `<span class="calendar-weekday" role="columnheader">${escapeHtml(day)}</span>`)
+    .join("");
+}
+
+function renderCalendarEvent(courseEvent) {
+  const course = getCourse(courseEvent.courseId);
+  const title = getLocalizedValue(course.title);
+  const library = getLocalizedValue(courseEvent.library);
+  const libraryShort = getLocalizedValue(courseEvent.libraryShort);
+  const isActive = courseEvent.id === appState.activeCourseEventId;
+  const ariaLabel = formatCopy("courseCalendarEventAria", {
+    title,
+    day: courseEvent.day,
+    time: courseEvent.time,
+    library,
+  });
+
+  return `
+    <button
+      class="calendar-event course-theme--${course.theme}${isActive ? " is-active" : ""}"
+      type="button"
+      data-course-select="${escapeHtml(courseEvent.id)}"
+      aria-pressed="${String(isActive)}"
+      aria-label="${escapeHtml(ariaLabel)}"
+    >
+      <span class="calendar-event__title">${escapeHtml(title)}</span>
+      <span class="calendar-event__library">${escapeHtml(libraryShort)}</span>
+    </button>
+  `;
+}
+
+function renderCourseCalendar() {
+  const container = document.querySelector("[data-course-calendar]");
+  const firstDayColumn = 5;
+
+  if (!container) {
+    return;
+  }
+
+  const leadingDays = Array.from(
+    { length: firstDayColumn - 1 },
+    () => '<div class="calendar-day calendar-day--empty calendar-day--muted" role="gridcell" aria-hidden="true"></div>',
+  );
+  const monthDays = Array.from({ length: 31 }, (_, index) => {
+    const day = index + 1;
+    const column = ((firstDayColumn + index - 1) % 7) + 1;
+    const isWeekend = column > 5;
+    const dayEvents = courseEvents.filter((courseEvent) => courseEvent.day === day);
+
+    return `
+      <div
+        class="calendar-day${isWeekend ? " calendar-day--muted" : ""}"
+        role="gridcell"
+      >
+        <span class="calendar-day__number">${day}</span>
+        ${dayEvents.map(renderCalendarEvent).join("")}
+      </div>
+    `;
+  });
+
+  container.innerHTML = leadingDays.concat(monthDays).join("");
+}
+
+function renderCourseCard(course) {
+  const activeEvent = getCourseEvent(appState.activeCourseEventId);
+  const isActive = activeEvent.courseId === course.id;
+  const courseEvent = isActive ? activeEvent : getCourseSummaryEvent(course.id);
+  const title = getLocalizedValue(course.title);
+  const description = getLocalizedValue(course.description);
+  const library = getLocalizedValue(courseEvent.library);
+
+  return `
+    <article class="course-card course-theme--${course.theme}${isActive ? " is-active" : ""}">
+      <button
+        class="course-card__select"
+        type="button"
+        data-course-select="${escapeHtml(courseEvent.id)}"
+        aria-pressed="${String(isActive)}"
+      >
+        <span class="course-card__date">${escapeHtml(formatCourseDate(courseEvent.day))}</span>
+        <strong>${escapeHtml(title)}</strong>
+        <span class="course-card__teacher">${escapeHtml(course.teacher)}</span>
+      </button>
+      <p class="course-card__description">${escapeHtml(description)}</p>
+      <div class="course-card__meta">
+        <span class="course-card__label">${escapeHtml(getCopy("courseLibraryLabel"))}</span>
+        <strong class="course-card__library">${escapeHtml(library)}</strong>
+        <span class="course-card__time">${escapeHtml(courseEvent.time)}</span>
+      </div>
+      <a class="button button--primary course-card__cta" href="#signup">${escapeHtml(getCopy("courseSignupCta"))}</a>
+    </article>
+  `;
+}
+
+function renderCourseList() {
+  const container = document.querySelector("[data-course-list]");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = courseCatalog.map(renderCourseCard).join("");
+}
+
+function renderCourses() {
+  renderCourseWeekdays();
+  renderCourseCalendar();
+  renderCourseList();
+}
+
+function selectCourse(eventId) {
+  if (!courseEvents.some((courseEvent) => courseEvent.id === eventId)) {
+    return;
+  }
+
+  appState.activeCourseEventId = eventId;
+  renderCourses();
+}
+
 function setDocumentLanguage() {
   document.documentElement.lang = appState.language;
   document.title = getCopy("documentTitle");
@@ -300,6 +670,7 @@ function applyLanguage() {
   setTextContent();
   setLanguageToggle();
   renderLibraryCard();
+  renderCourses();
 }
 
 function toggleLanguage() {
@@ -364,6 +735,24 @@ function bindMap() {
   });
 }
 
+function bindCourses() {
+  const courseSection = document.querySelector("[data-course-section]");
+
+  courseSection?.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+
+    const control = event.target.closest("[data-course-select]");
+
+    if (!control) {
+      return;
+    }
+
+    selectCourse(control.dataset.courseSelect);
+  });
+}
+
 function markAppReady() {
   document.body.classList.add("is-ready");
 }
@@ -371,6 +760,7 @@ function markAppReady() {
 document.addEventListener("DOMContentLoaded", () => {
   bindNavigation();
   bindMap();
+  bindCourses();
   applyLanguage();
   markAppReady();
 });
