@@ -798,9 +798,9 @@ p {
 }
 
 .map-tooltip {
-  position: fixed;
+  position: absolute;
   z-index: 60;
-  width: min(529px, calc(100vw - 32px));
+  width: min(529px, calc(100% - 32px));
   height: 230px;
   color: var(--color-black);
   pointer-events: auto;

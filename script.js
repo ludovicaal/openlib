@@ -930,6 +930,13 @@ function hideMapTooltip() {
 }
 
 function positionMapTooltip(tooltip, clientX, clientY) {
+  const panel = tooltip.closest(".map-panel");
+
+  if (!panel) {
+    return;
+  }
+
+  const panelRect = panel.getBoundingClientRect();
   const viewportMargin = 16;
   const pinRadius = 16.5;
   const tooltipWidth = tooltip.offsetWidth;
@@ -942,15 +949,18 @@ function positionMapTooltip(tooltip, clientX, clientY) {
   const placementY = hasSpaceAbove || !hasSpaceBelow ? "above" : "below";
   const rawLeft = placementX === "right" ? clientX - pinRadius : clientX + pinRadius - tooltipWidth;
   const rawTop = placementY === "above" ? clientY + pinRadius - tooltipHeight : clientY - pinRadius;
-  const maxLeft = Math.max(viewportMargin, window.innerWidth - tooltipWidth - viewportMargin);
-  const maxTop = Math.max(viewportMargin, window.innerHeight - tooltipHeight - viewportMargin);
-  const left = Math.min(Math.max(rawLeft, viewportMargin), maxLeft);
-  const top = Math.min(Math.max(rawTop, viewportMargin), maxTop);
+
+  const minLeft = Math.max(viewportMargin, panelRect.left);
+  const minTop = Math.max(viewportMargin, panelRect.top);
+  const maxLeft = Math.max(minLeft, Math.min(window.innerWidth - tooltipWidth - viewportMargin, panelRect.right - tooltipWidth));
+  const maxTop = Math.max(minTop, Math.min(window.innerHeight - tooltipHeight - viewportMargin, panelRect.bottom - tooltipHeight));
+  const left = Math.min(Math.max(rawLeft, minLeft), maxLeft);
+  const top = Math.min(Math.max(rawTop, minTop), maxTop);
 
   tooltip.dataset.placementX = placementX;
   tooltip.dataset.placementY = placementY;
-  tooltip.style.left = `${left}px`;
-  tooltip.style.top = `${top}px`;
+  tooltip.style.left = `${left - panelRect.left}px`;
+  tooltip.style.top = `${top - panelRect.top}px`;
 }
 
 function showMapTooltip(library, clientX, clientY) {
